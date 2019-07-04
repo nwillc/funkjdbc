@@ -25,8 +25,8 @@ import java.sql.ResultSet
  */
 typealias Extractor<T> = (ResultSet) -> T
 
-/** A function accepting a sequence of type T to allow processing. */
-typealias ResultsProcessor<T> = (Sequence<T>) -> Unit
+/** A function accepting a sequence of type T to allow processing and returning the results. */
+typealias ResultsProcessor<T, R> = (Sequence<T>) -> R
 
 /**
  * Execute a SQL statement on a JDBC Connection. The SQL is expected to be a statement
@@ -53,7 +53,7 @@ fun Connection.update(sqlStatement: SqlStatement): Int = prepareStatement(sqlSta
  * @param extractor A function to extract type T from the rows.
  * @param resultsProcessor A function to process rows after extraction.
  */
-fun <T> Connection.query(sql: String, extractor: Extractor<T>, resultsProcessor: ResultsProcessor<T>) =
+fun <T, R> Connection.query(sql: String, extractor: Extractor<T>, resultsProcessor: ResultsProcessor<T, R>) =
     createStatement().use { statement ->
         ResultSetIterator(statement.executeQuery(sql), extractor).use { rs -> resultsProcessor(rs.asSequence()) }
     }
@@ -66,7 +66,7 @@ fun <T> Connection.query(sql: String, extractor: Extractor<T>, resultsProcessor:
  * @param extractor A function to extract type T from the rows.
  * @param resultsProcessor A function to process rows after extraction.
  */
-fun <T> Connection.query(sqlStatement: SqlStatement, extractor: Extractor<T>, resultsProcessor: ResultsProcessor<T>) =
+fun <T, R> Connection.query(sqlStatement: SqlStatement, extractor: Extractor<T>, resultsProcessor: ResultsProcessor<T, R>) =
     prepareStatement(sqlStatement.sql).use { statement ->
         sqlStatement.bind(statement)
         ResultSetIterator(statement.executeQuery(), extractor).use { rs -> resultsProcessor(rs.asSequence()) }

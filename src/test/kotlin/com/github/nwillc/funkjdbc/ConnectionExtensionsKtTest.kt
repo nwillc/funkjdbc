@@ -36,7 +36,7 @@ class ConnectionExtensionsKtTest {
     fun setup() {
         connection = EmbeddedH2.getConnection()
         assertThat(connection).isNotNull
-        connection.update("CREATE TABLE WORDS ( WORD CHAR(20), COUNT INTEGER DEFAULT 0)")
+        connection.update("CREATE TABLE WORDS ( WORD CHAR(20) NOT NULL, COUNT INTEGER DEFAULT 0)")
         connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('a', 1)")
         connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('b', 2)")
         connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('c', 10)")
@@ -150,14 +150,13 @@ class ConnectionExtensionsKtTest {
     @Test
     internal fun `should be able you use a Pair extractor to create a Map`() {
         fun pairExtractor(rs: ResultSet) = Pair(
-            rs.getString("WORD"),
+            rs.getString("WORD")!!,
             rs.getInt("COUNT")
         )
 
-        connection.query("SELECT * FROM WORDS", ::pairExtractor) {
-            val map = it.toMap()
-            assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
+        val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) {
+            it.toMap()
         }
-
+        assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
     }
 }

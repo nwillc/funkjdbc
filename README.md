@@ -6,7 +6,7 @@ Assuming you've a JDBC Connection and wish to create a database to store word co
 that table:
 
 ```kotlin
- connection.update("CREATE TABLE WORDS ( WORD CHAR(20), COUNT INTEGER DEFAULT 0)")
+ connection.update("CREATE TABLE WORDS ( WORD CHAR(20) NOT NULL, COUNT INTEGER DEFAULT 0)")
 ```
 
 Now you want to add a row noting 10 occurrences of the word `foo`:
@@ -30,10 +30,10 @@ Having created the table and added some rows, now you want to read rows our as P
 them in a Map:
 
 ```kotlin
-fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD"),rs.getInt("COUNT"))
+fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD")!!,rs.getInt("COUNT"))
 
-connection.query("SELECT * FROM WORDS", ::pairExtractor) {
-  val map = it.toMap()
+val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) {
+   it.toMap()
 }
 ```
 ## See Also
