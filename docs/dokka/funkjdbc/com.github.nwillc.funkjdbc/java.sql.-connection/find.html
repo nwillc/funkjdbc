@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>find - funkjdbc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="index.html">java.sql.Connection</a>&nbsp;/&nbsp;<a href="./find.html">find</a><br/>
+<br/>
+<h1>find</h1>
+<a name="com.github.nwillc.funkjdbc$find(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">.</span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc$find(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc$find(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))/extractor">extractor</span><span class="symbol">:</span>&nbsp;<a href="../-extractor.html"><span class="identifier">Extractor</span></a><span class="symbol">&lt;</span><a href="find.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="find.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>A convenience function to execute a SQL query on a JDBC Connection. The SQL is expected to be a query
+with the aim of retrieving matching rows. This could alseo be achieved with query and an appropriate
+results processor.</p>
+<h3>Parameters</h3>
+<p><a name="sql"></a>
+<code>sql</code> - A simple SQL query.</p>
+<p><a name="extractor"></a>
+<code>extractor</code> - A function to extract type T from the rows.</p>
+<p><strong>Return</strong><br/>
+The matching rows.</p>
+<a name="com.github.nwillc.funkjdbc$find(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">.</span><span class="identifier">find</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc$find(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))/sqlStatement">sqlStatement</span><span class="symbol">:</span>&nbsp;<a href="../-sql-statement/index.html"><span class="identifier">SqlStatement</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc$find(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))/extractor">extractor</span><span class="symbol">:</span>&nbsp;<a href="../-extractor.html"><span class="identifier">Extractor</span></a><span class="symbol">&lt;</span><a href="find.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="find.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>A convenience function to execute a SQL query on a JDBC Connection. The SQL is expected to be a query
+with the aim of retrieving matching rows. This could also be achieved with query and an appropriate
+results processor.</p>
+<h3>Parameters</h3>
+<p><a name="sqlStatement"></a>
+<code>sqlStatement</code> - A SqlStatement containing a query allowing for parameters.</p>
+<p><a name="extractor"></a>
+<code>extractor</code> - A function to extract type T from the rows.</p>
+<p><strong>Return</strong><br/>
+The matching rows.</p>
+</BODY>
+</HTML>
