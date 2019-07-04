@@ -4,6 +4,8 @@
 [![Download](https://api.bintray.com/packages/nwillc/maven/funkjdbc/images/download.svg)](https://bintray.com/nwillc/maven/funkjdbc/_latestVersion)
 ------
 
+# Functional Kotlin JDBC Extensions
+
 ## Using These Extensions
 
 Assuming you've a JDBC Connection and wish to create a database to store word counts. Lets create 
