@@ -25,7 +25,7 @@ import java.sql.ResultSet
  */
 typealias Extractor<T> = (ResultSet) -> T
 
-/** A function accepting a sequence of type T to allow processing and returning the results. */
+/** A function accepting a sequence of type T to allow processing and returning the results R. */
 typealias ResultsProcessor<T, R> = (Sequence<T>) -> R
 
 /**

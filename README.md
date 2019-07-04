@@ -26,16 +26,26 @@ connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)") {
 }
 ```
 
-Having created the table and added some rows, now you want to read rows our as Pairs, and put
-them in a Map:
+Having created the table and added some rows, now you want to display them:
 
 ```kotlin
 fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD")!!,rs.getInt("COUNT"))
 
+connection.query("SELECT * FROM WORDS", ::pairExtractor) {
+   it.forEach {
+     println("Word: ${it.first} Count: ${it.second}")
+   }
+}
+```
+
+Or maybe put them in a Map:
+
+```kotlin
 val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) {
    it.toMap()
 }
 ```
+
 ## See Also
 
 - [API Docs](https://nwillc.github.io/funkjdbc/dokka/funkjdbc/com.github.nwillc.funkjdbc/index.html)

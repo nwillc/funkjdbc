@@ -148,7 +148,7 @@ class ConnectionExtensionsKtTest {
     }
 
     @Test
-    internal fun `should be able you use a Pair extractor to create a Map`() {
+    internal fun `should be able you use get result of query processor`() {
         fun pairExtractor(rs: ResultSet) = Pair(
             rs.getString("WORD")!!,
             rs.getInt("COUNT")
