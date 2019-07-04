@@ -6,6 +6,19 @@
 
 # Functional Kotlin JDBC Extensions
 
+Nothing exciting but...
+
+ - Row to object mapping with higher order functions.
+ - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases.
+ - Provide results as a Sequence.
+ - Thoroughly handled resource closing to remove boiler plate code. 
+ - Supports raw String SQL as well as JDBC’s ? replacements
+ - Differentiates updates from queries, i.e. SQL that returns a result code, vs. a result sequence
+ - Simple as dirt
+ - Under 200 lines of code
+ - documented
+ - Not a single transitive dependency … so >10k binary all in
+
 ## Using These Extensions
 
 Assuming you've a JDBC Connection and wish to create a database to store word counts. Lets create 
