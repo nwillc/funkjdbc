@@ -2,4 +2,4 @@
 
 ## See Also
 
-- [API Docs](https://nwillc.github.io/funkjdbc/dokka/funkjdbc)
+- [API Docs](https://nwillc.github.io/funkjdbc/dokka/funkjdbc/com.github.nwillc.funkjdbc/index.html)
