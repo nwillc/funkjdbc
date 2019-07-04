@@ -9,13 +9,15 @@ val jupiterVersion: String by project
 val ktlintVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.40"
+    kotlin("jvm") version "1.3.41"
+    id("org.jetbrains.dokka") version "0.9.18"
     id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
     id("com.github.nwillc.vplugin") version "2.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.0.0-RC16"
 }
 
 group = "com.github.nwillc"
+version="0.5.0-SNAPSHOT"
 
 repositories {
     jcenter()
