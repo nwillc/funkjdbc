@@ -66,11 +66,14 @@ fun <T, R> Connection.query(sql: String, extractor: Extractor<T>, resultsProcess
  * @param extractor A function to extract type T from the rows.
  * @param resultsProcessor A function to process rows after extraction.
  */
-fun <T, R> Connection.query(sqlStatement: SqlStatement, extractor: Extractor<T>, resultsProcessor: ResultsProcessor<T, R>) =
-    prepareStatement(sqlStatement.sql).use { statement ->
-        sqlStatement.bind(statement)
-        ResultSetIterator(statement.executeQuery(), extractor).use { rs -> resultsProcessor(rs.asSequence()) }
-    }
+fun <T, R> Connection.query(
+    sqlStatement: SqlStatement,
+    extractor: Extractor<T>,
+    resultsProcessor: ResultsProcessor<T, R>
+) = prepareStatement(sqlStatement.sql).use { statement ->
+    sqlStatement.bind(statement)
+    ResultSetIterator(statement.executeQuery(), extractor).use { rs -> resultsProcessor(rs.asSequence()) }
+}
 
 /**
  * A convenience function to execute a SQL query on a JDBC Connection. The SQL is expected to be a query
