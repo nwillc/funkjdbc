@@ -5,11 +5,13 @@ val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val assertjVarsion: String by project
 val detektToolVersion: String by project
 val h2Version: String by project
+val jacocoToolVersion: String by project
 val jupiterVersion: String by project
 val ktlintVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.3.41"
+    jacoco
     id("org.jetbrains.dokka") version "0.9.18"
     id("org.jlleitschuh.gradle.ktlint") version "8.1.0"
     id("com.github.nwillc.vplugin") version "2.3.0"
@@ -18,6 +20,8 @@ plugins {
 
 group = "com.github.nwillc"
 version="0.5.0-SNAPSHOT"
+
+logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
 repositories {
     jcenter()
@@ -40,6 +44,10 @@ detekt {
     toolVersion = detektToolVersion
 }
 
+jacoco {
+    toolVersion = jacocoToolVersion
+}
+
 tasks {
     named<Jar>("jar") {
         manifest.attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
@@ -59,5 +67,16 @@ tasks {
             }
             Unit
         }))
+    }
+    withType<JacocoReport> {
+        dependsOn("test")
+        reports {
+            xml.apply {
+                isEnabled = true
+            }
+            html.apply {
+                isEnabled = true
+            }
+        }
     }
 }

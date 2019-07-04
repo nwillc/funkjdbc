@@ -7,6 +7,10 @@ jdk:
 env:
   - TERM=dumb
 
+after_success:
+  - ./gradlew jacocoTestReport
+  - bash <(curl -s https://codecov.io/bash)
+
 branches:
   only:
     - master
