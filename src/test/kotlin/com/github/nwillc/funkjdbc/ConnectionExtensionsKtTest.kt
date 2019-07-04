@@ -20,10 +20,12 @@ package com.github.nwillc.funkjdbc
 import com.github.nwillc.funkjdbc.testing.EmbeddedH2
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
+import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
+import java.sql.ResultSet
 import java.sql.SQLException
 
 @ExtendWith(EmbeddedH2::class)
@@ -34,10 +36,10 @@ class ConnectionExtensionsKtTest {
     fun setup() {
         connection = EmbeddedH2.getConnection()
         assertThat(connection).isNotNull
-        connection.update("CREATE TABLE WORDS ( WORD CHAR(20) )")
-        connection.update("INSERT INTO WORDS (WORD) VALUES ('a')")
-        connection.update("INSERT INTO WORDS (WORD) VALUES ('b')")
-        connection.update("INSERT INTO WORDS (WORD) VALUES ('c')")
+        connection.update("CREATE TABLE WORDS ( WORD CHAR(20), COUNT INTEGER DEFAULT 0)")
+        connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('a', 1)")
+        connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('b', 2)")
+        connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('c', 10)")
     }
 
     @Test
@@ -143,5 +145,19 @@ class ConnectionExtensionsKtTest {
         }
 
         assertThat(found).isEmpty()
+    }
+
+    @Test
+    internal fun `should be able you use a Pair extractor to create a Map`() {
+        fun pairExtractor(rs: ResultSet) = Pair(
+            rs.getString("WORD"),
+            rs.getInt("COUNT")
+        )
+
+        connection.query("SELECT * FROM WORDS", ::pairExtractor) {
+            val map = it.toMap()
+            assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
+        }
+
     }
 }
