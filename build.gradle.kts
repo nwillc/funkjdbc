@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version="0.5.0-SNAPSHOT"
+version = "0.5.0-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
