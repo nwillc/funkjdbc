@@ -19,6 +19,7 @@ package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedH2
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -41,6 +42,20 @@ internal class ResultSetIteratorTest {
     fun `should iterate the results of a query`() {
         connection.query("SELECT * FROM WORDS", { rs -> rs.getString(1) }) {
             assertThat(it.toList()).containsAll(listOf("a", "boo"))
+        }
+    }
+
+    @Test
+    fun `should throw NoSuchElementException when next requested after end`() {
+        connection.createStatement().use {
+            val resultSet = it.executeQuery("SELECT * FROM WORDS")
+            val resultSetIterator = ResultSetIterator(resultSet, { rs -> rs.getString(1) })
+
+            while (resultSetIterator.hasNext())
+                resultSetIterator.next()
+
+            assertThatThrownBy { resultSetIterator.next() }
+                .isInstanceOf(NoSuchElementException::class.java)
         }
     }
 }
