@@ -19,10 +19,39 @@ package com.github.nwillc.funkjdbc
 
 import java.sql.PreparedStatement
 
+/** A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL. */
+typealias Binder = (PreparedStatement) -> Unit
+
 /**
- * A SQL string, with a binding block. The sql String excepts JDBC '?' value replacement syntax,
- * and the binding block allows you to bind values to those '?'s on a given PreparedStatement.
+ * A SQL string, with a binding block to help with JDBC PreparedStatemets. The sql String
+ * excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
+ * to those '?'s on a given PreparedStatement.
+ *
+ * A simple use might be:
+ * ```
+ * val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT < ?") {
+ *   it.setInt(1, someValue)
+ * }
+ * ```
+ * However, this class and the bind property are `open`. This is done to allow subclassing to create specific
+ * queries with typed arguments in a clean fashion:
+ *
+ * ```
+ * data class SelectCountLTE(var value: Int = 0) :
+ *   SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
+ *    override val bind: Binder = { it.setInt(1, value) }
+ * }
+ * ```
+ * To allow uses like:
+ * ```
+ * val sql = SelectCountLTE(1)
+ * connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= 1") } }
+ *
+ * sql.value = 200
+ * connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= 200") } }
+ * ```
+ *
  * @property sql The JDBC formatted SQL statements
  * @property bind The binding code block to bind values to SQL's '?'s
  */
-class SqlStatement(val sql: String, val bind: (PreparedStatement) -> Unit = {})
+open class SqlStatement(val sql: String, open val bind: Binder = {})

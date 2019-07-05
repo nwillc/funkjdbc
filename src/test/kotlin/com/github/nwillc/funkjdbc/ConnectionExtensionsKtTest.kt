@@ -148,7 +148,7 @@ class ConnectionExtensionsKtTest {
     }
 
     @Test
-    internal fun `should be able you use result of query processor`() {
+    fun `should be able you use result of query processor`() {
         fun pairExtractor(rs: ResultSet) = Pair(
             rs.getString("WORD")!!,
             rs.getInt("COUNT")

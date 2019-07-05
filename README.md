@@ -34,21 +34,6 @@ Now you want to add a row noting 10 occurrences of the word `foo`:
  connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('foo', 10)")
 ```
 
-Or better yet, add rows where the word and count depend on properties:
-
-```kotlin
-var word = "bar"
-var count = 25
-val sql = SqlStatement("INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)") {
-  it.setString(1, word)
-  it.setInt(2, count)  
-}
-connection.update(sql)
-word = "baz"
-count = 8
-connection.update(sql)
-```
-
 Having created the table and added some rows, now you want to display them:
 
 ```kotlin
@@ -65,6 +50,22 @@ Or maybe put them in a Map:
 
 ```kotlin
 val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
+```
+
+Or create a parameterized query based on the counts:
+
+```kotlin
+data class SelectCountLTE(var value: Int = 0) : 
+  SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
+  override val bind: Binder = { it.setInt(1, value) } 
+}
+
+val sql = SelectCountLTE(1)
+connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
+ 
+sql.value = 200
+connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
+
 ```
 
 ## See Also
