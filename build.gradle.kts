@@ -10,7 +10,6 @@ val h2Version: String by project
 val jacocoToolVersion: String by project
 val jupiterVersion: String by project
 val ktlintVersion: String by project
-val mockkVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.3.41"
@@ -24,7 +23,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.5.2-SNAPSHOT"
+version = "0.6.0"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -39,7 +38,6 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
-    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 ktlint {
