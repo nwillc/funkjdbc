@@ -34,15 +34,19 @@ Now you want to add a row noting 10 occurrences of the word `foo`:
  connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('foo', 10)")
 ```
 
-Or better yet, add a row where the word and count depend on properties:
+Or better yet, add rows where the word and count depend on properties:
 
 ```kotlin
-val word = "bar"
-val count = 25
-connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)") {
+var word = "bar"
+var count = 25
+val sql = SqlStatement("INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)") {
   it.setString(1, word)
   it.setInt(2, count)  
 }
+connection.update(sql)
+word = "baz"
+count = 8
+connection.update(sql)
 ```
 
 Having created the table and added some rows, now you want to display them:
