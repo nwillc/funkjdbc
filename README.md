@@ -64,9 +64,7 @@ connection.query("SELECT * FROM WORDS", ::pairExtractor) {
 Or maybe put them in a Map:
 
 ```kotlin
-val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) {
-   it.toMap()
-}
+val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
 ```
 
 ## See Also

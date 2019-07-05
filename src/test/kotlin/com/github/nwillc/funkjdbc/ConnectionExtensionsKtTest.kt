@@ -154,9 +154,7 @@ class ConnectionExtensionsKtTest {
             rs.getInt("COUNT")
         )
 
-        val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) {
-            it.toMap()
-        }
+        val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
         assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
     }
 }
