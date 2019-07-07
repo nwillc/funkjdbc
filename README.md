@@ -9,11 +9,11 @@
 Nothing exciting but...
 
  - Row to object mapping with higher order functions.
- - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases.
+ - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases:
+   - update, query, transaction
  - Provide results as a Sequence.
  - Thoroughly handled resource closing to remove boiler plate code. 
  - Supports raw String SQL as well as JDBC’s ? replacements
- - Differentiates updates from queries, i.e. SQL that returns a result code, vs. a result sequence
  - Simple as dirt
  - Under 200 lines of code
  - documented

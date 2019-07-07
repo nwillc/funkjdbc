@@ -109,7 +109,7 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
 
 /**
  * Perform operations on connection within a transaction. This function will, if any exception
- * occurs, rollback the transaction an pass up the exception. If no exception occurs the transaction
+ * occurs, rollback the transaction and pass up the exception. If no exception occurs the transaction
  * is committed.
  * @param block The code block to perform within the transaction.
  */
