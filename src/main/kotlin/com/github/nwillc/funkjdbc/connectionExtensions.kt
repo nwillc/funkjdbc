@@ -17,6 +17,7 @@
 
 package com.github.nwillc.funkjdbc
 
+import java.lang.Exception
 import java.sql.Connection
 import java.sql.ResultSet
 
@@ -105,3 +106,24 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
             rs.asSequence().toList()
         }
     }
+
+/**
+ * Perform operations on connection within a transaction. This function will, if any exception
+ * occurs, rollback the transaction an pass up the exception. If no exception occurs the transaction
+ * is committed.
+ * @param block The code block to perform within the transaction.
+ */
+@SuppressWarnings("TooGenericExceptionCaught")
+fun Connection.transaction(block: (connection: Connection) -> Unit) {
+    val priorAutoCommit = autoCommit
+    autoCommit = false
+    try {
+        block(this)
+        commit()
+    } catch (e: Exception) {
+        rollback()
+        throw e
+    } finally {
+        autoCommit = priorAutoCommit
+    }
+}

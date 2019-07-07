@@ -24,6 +24,8 @@ import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.lang.Exception
+import java.lang.IllegalStateException
 import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.SQLException
@@ -156,5 +158,34 @@ class ConnectionExtensionsKtTest {
 
         val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
         assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
+    }
+
+    @Test
+    fun `should commit a transaction`() {
+        connection.transaction {
+            it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('d', 10)")
+        }
+        val found = connection.find(
+            "SELECT * FROM WORDS WHERE WORD = 'd'",
+            { rs -> rs.getString(1) })
+        assertThat(found).hasSize(1)
+    }
+
+    @Test
+    fun `should rollback a transaction`() {
+        var ran = false
+        try {
+            connection.transaction {
+                it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('d', 10)")
+                ran = true
+                throw IllegalStateException()
+            }
+        } catch (e: Exception) {
+        }
+        assertThat(ran).isTrue()
+        val found = connection.find(
+            "SELECT * FROM WORDS WHERE WORD = 'd'",
+            { rs -> rs.getString(1) })
+        assertThat(found).hasSize(0)
     }
 }

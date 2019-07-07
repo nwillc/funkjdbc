@@ -68,6 +68,18 @@ connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it 
 
 ```
 
+Additionally operations can be performed in a transaction:
+
+```kotlin
+try {
+  connection.transaction {
+    it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('foo', 10)")
+    it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('foobar', 10)")
+  }
+} catch (e: Exception) {
+  println("Transaction failed: $e")
+}
+```
 ## See Also
 
 - [API Docs](https://nwillc.github.io/funkjdbc/dokka/funkjdbc/com.github.nwillc.funkjdbc/index.html)
