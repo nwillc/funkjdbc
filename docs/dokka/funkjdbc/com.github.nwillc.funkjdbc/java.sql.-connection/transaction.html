@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>transaction - funkjdbc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="index.html">java.sql.Connection</a>&nbsp;/&nbsp;<a href="./transaction.html">transaction</a><br/>
+<br/>
+<h1>transaction</h1>
+<a name="com.github.nwillc.funkjdbc$transaction(java.sql.Connection, kotlin.Function1((java.sql.Connection, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">.</span><span class="identifier">transaction</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc$transaction(java.sql.Connection, kotlin.Function1((java.sql.Connection, kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">connection</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Perform operations on connection within a transaction. This function will, if any exception
+occurs, rollback the transaction an pass up the exception. If no exception occurs the transaction
+is committed.</p>
+<h3>Parameters</h3>
+<p><a name="block"></a>
+<code>block</code> - The code block to perform within the transaction.</p>
+</BODY>
+</HTML>
