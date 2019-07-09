@@ -34,10 +34,11 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    runtime("com.h2database:h2:$h2Version")
-
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
+
+    testRuntime("com.h2database:h2:$h2Version")
+//    testRuntime("org.hsqldb:hsqldb:2.5.0")
 }
 
 ktlint {
