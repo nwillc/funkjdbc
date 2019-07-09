@@ -43,12 +43,10 @@ class EmbeddedDb : BeforeEachCallback, AfterEachCallback {
             .forEach {
                 connection.update(it.readText())
             }
-        val withConnection = context.requiredTestInstance as WithConnection
-        withConnection.connection = connection
+        (context.requiredTestInstance as WithConnection).connection = connection
     }
 
     override fun afterEach(context: ExtensionContext) {
-        val withConnection = context.requiredTestInstance as WithConnection
-        withConnection.connection.close()
+        (context.requiredTestInstance as WithConnection).connection.close()
     }
 }
