@@ -17,8 +17,8 @@
 
 package com.github.nwillc.funkjdbc.testing
 
-import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
+import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(EmbeddedDb::class)
 open class WithConnection {
