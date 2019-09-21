@@ -1,8 +1,12 @@
-import com.jfrog.bintray.gradle.BintrayExtension
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URI
 
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
-val publicationName = "maven"
+val publicationName = "gpr"
+
+val gprUser = System.getenv("GPR_USER")
+val gprKey = System.getenv("GPR_KEY")
 
 val assertjVarsion: String by project
 val detektToolVersion: String by project
@@ -19,11 +23,10 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
     id("com.github.nwillc.vplugin") version "3.0.1"
     id("io.gitlab.arturbosch.detekt") version "1.0.1"
-    id("com.jfrog.bintray") version "1.8.4"
 }
 
 group = "com.github.nwillc"
-version = "0.8.1-SNAPSHOT"
+version = "0.8.3"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -38,7 +41,6 @@ dependencies {
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
 
     testRuntime("com.h2database:h2:$h2Version")
-//    testRuntime("org.hsqldb:hsqldb:2.5.0")
 }
 
 ktlint {
@@ -65,37 +67,28 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 publishing {
+    repositories {
+        maven() {
+            name = "GitHubPackages"
+            url = URI("https://maven.pkg.github.com/$gprUser/${project.name}")
+            credentials {
+                username = gprUser
+                password = gprKey
+            }
+        }
+    }
     publications {
         create<MavenPublication>(publicationName) {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
 
+            pom
             from(components["java"])
             artifact(sourcesJar.get())
             artifact(javadocJar.get())
         }
     }
-}
-
-bintray {
-    user = System.getenv("BINTRAY_USER")
-    key = System.getenv("BINTRAY_API_KEY")
-    dryRun = false
-    publish = true
-    setPublications(publicationName)
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = publicationName
-        name = project.name
-        desc = "Functional Kotlin JDBC Extensions."
-        websiteUrl = "https://github.com/nwillc/${project.name}"
-        issueTrackerUrl = "https://github.com/nwillc/${project.name}/issues"
-        vcsUrl = "https://github.com/nwillc/${project.name}.git"
-        version.vcsTag = "v${project.version}"
-        setLicenses("ISC")
-        setLabels("kotlin", "JDBC")
-        publicDownloadNumbers = true
-    })
 }
 
 tasks {
