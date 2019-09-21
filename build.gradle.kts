@@ -4,7 +4,6 @@ import java.net.URI
 
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "gpr"
-
 val gprUser = System.getenv("GPR_USER")
 val gprKey = System.getenv("GPR_KEY")
 
@@ -36,7 +35,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
 
@@ -85,8 +83,8 @@ publishing {
 
             pom
             from(components["java"])
-            artifact(sourcesJar.get())
-            artifact(javadocJar.get())
+//            artifact(sourcesJar.get())
+//            artifact(javadocJar.get())
         }
     }
 }
