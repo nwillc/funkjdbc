@@ -1,6 +1,6 @@
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import java.net.URI
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "gpr"
@@ -8,20 +8,20 @@ val gprUser = System.getenv("GPR_USER")
 val gprKey = System.getenv("GPR_KEY")
 
 val assertjVarsion: String by project
-val detektToolVersion: String by project
+val detektVersion: String by project
 val h2Version: String by project
 val jacocoToolVersion: String by project
 val jupiterVersion: String by project
 val ktlintVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.50"
+    kotlin("jvm")
     jacoco
     `maven-publish`
-    id("org.jetbrains.dokka") version "0.9.18"
-    id("org.jlleitschuh.gradle.ktlint") version "8.2.0"
-    id("com.github.nwillc.vplugin") version "3.0.1"
-    id("io.gitlab.arturbosch.detekt") version "1.0.1"
+    id("org.jetbrains.dokka")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("com.github.nwillc.vplugin")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 group = "com.github.nwillc"
@@ -46,7 +46,7 @@ ktlint {
 }
 
 detekt {
-    toolVersion = detektToolVersion
+    toolVersion = detektVersion
 }
 
 jacoco {
