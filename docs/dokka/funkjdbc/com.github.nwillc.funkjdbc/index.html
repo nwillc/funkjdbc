@@ -13,56 +13,46 @@
 <tbody>
 <tr>
 <td>
-<p><a href="-result-set-iterator/index.html">ResultSetIterator</a></p>
+<h4><a href="-binder.html">Binder</a></h4>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><a href="-result-set-iterator/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></code>
-<p>This is an Iterator that iterates over a ResultSet returning elements with an Extractor. Additionally this
-implements AutoCloseable.</p>
-</td>
+<p>A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL.</p>
+<code><span class="keyword">typealias </span><span class="identifier">Binder</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html"><span class="identifier">PreparedStatement</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="-sql-statement/index.html">SqlStatement</a></p>
+<h4><a href="-extractor.html">Extractor</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></code>
+<p>A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.</p>
+<code><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-result-set-iterator/index.html">ResultSetIterator</a></h4>
+</td>
+<td>
+<p>This is an Iterator that iterates over a ResultSet returning elements with an Extractor. Additionally this
+implements AutoCloseable.</p>
+<code><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-results-processor.html">ResultsProcessor</a></h4>
+</td>
+<td>
+<p>A function accepting a sequence of type T to allow processing and returning the results R.</p>
+<code><span class="keyword">typealias </span><span class="identifier">ResultsProcessor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-sql-statement/index.html">SqlStatement</a></h4>
+</td>
+<td>
 <p>A SQL string, with a binding block to help with JDBC PreparedStatemets. The sql String
 excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
 to those '?'s on a given PreparedStatement.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<h3>Type Aliases</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-binder.html">Binder</a></p>
-</td>
-<td>
-<code><span class="keyword">typealias </span><span class="identifier">Binder</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html"><span class="identifier">PreparedStatement</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
-<p>A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="-extractor.html">Extractor</a></p>
-</td>
-<td>
-<code><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-extractor.html#T"><span class="identifier">T</span></a></code>
-<p>A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="-results-processor.html">ResultsProcessor</a></p>
-</td>
-<td>
-<code><span class="keyword">typealias </span><span class="identifier">ResultsProcessor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><a href="-results-processor.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="-results-processor.html#R"><span class="identifier">R</span></a></code>
-<p>A function accepting a sequence of type T to allow processing and returning the results R.</p>
-</td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -71,7 +61,7 @@ to those '?'s on a given PreparedStatement.</p>
 <tbody>
 <tr>
 <td>
-<p><a href="java.sql.-connection/index.html">java.sql.Connection</a></p>
+<h4><a href="java.sql.-connection/index.html">java.sql.Connection</a></h4>
 </td>
 <td>
 </td>

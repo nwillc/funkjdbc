@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, nwillc@gmail.com
+ * Copyright (c) 2020, nwillc@gmail.com
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,12 +18,14 @@
 package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.WithConnection
-import java.sql.ResultSet
-import java.sql.SQLException
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.Test
+import java.sql.ResultSet
+import java.sql.SQLException
 
 class ConnectionExtensionsKtTest : WithConnection() {
 
@@ -92,6 +94,34 @@ class ConnectionExtensionsKtTest : WithConnection() {
         }
 
         assertThat(found).isEmpty()
+    }
+
+    @Test
+    fun `should be able to find as flow`() {
+        runBlocking {
+            val flowContained = mutableListOf<String>()
+            connection.flow("SELECT * FROM WORDS") { rs -> rs.getString(1) }
+                .collect {
+                    flowContained.add(it)
+                }
+            assertThat(flowContained).containsExactly("a", "b", "c")
+        }
+    }
+
+    @Test
+    fun `should be able to find with params as flow`() {
+        val word = "a"
+        val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
+            it.setString(1, word)
+        }
+        runBlocking {
+            val flowContained = mutableListOf<String>()
+            connection.flow(sqlStatement) { rs -> rs.getString(1) }
+                .collect {
+                    flowContained.add(it)
+                }
+            assertThat(flowContained).containsExactly("b", "c")
+        }
     }
 
     @Test

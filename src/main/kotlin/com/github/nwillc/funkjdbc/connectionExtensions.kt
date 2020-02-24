@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, nwillc@gmail.com
+ * Copyright (c) 2020, nwillc@gmail.com
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -17,9 +17,11 @@
 
 package com.github.nwillc.funkjdbc
 
-import java.lang.Exception
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import java.sql.Connection
 import java.sql.ResultSet
+
 
 /**
  * A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
@@ -60,7 +62,7 @@ fun <T, R> Connection.query(sql: String, extractor: Extractor<T>, resultsProcess
     }
 
 /**
- * Execute a SQL query on a JDBC Connection. The SQL is expected to be a query
+ * Execute SQL query on a JDBC Connection. The SQL is expected to be a query
  * and therefore returns a result set that the extractor can extract type T from the rows,
  * and the resultsProcessor can then process them.
  * @param sqlStatement A SqlStatement containing a query allowing for parameters.
@@ -92,7 +94,7 @@ fun <T> Connection.find(sql: String, extractor: Extractor<T>): List<T> =
     }
 
 /**
- * A convenience function to execute a SQL query on a JDBC Connection. The SQL is expected to be a query
+ * A convenience function to execute a SQL query on a JDBC Connection. The SQL is a query
  * with the aim of retrieving matching rows. This could also be achieved with query and an appropriate
  * results processor.
  * @param sqlStatement A SqlStatement containing a query allowing for parameters.
@@ -106,6 +108,39 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
             rs.asSequence().toList()
         }
     }
+
+/**
+ * Takes SQL string and extractor and returns a [Flow] of T of the resultant rows.
+ * @param sql The SQL to execute.
+ * @param extractor A function to extract type T from row.
+ * @return A Flow of T.
+ */
+fun <T> Connection.flow(sql: String, extractor: Extractor<T>): Flow<T> = flow {
+    createStatement().use { statement ->
+        statement.executeQuery(sql).use {
+            while (it.next()) {
+                emit(extractor(it))
+            }
+        }
+    }
+}
+
+/**
+ * Takes [SqlStatement] and extractor and returns a [Flow] of T of the resultant rows.
+ * @param sqlStatement The SQL to execute.
+ * @param extractor A function to extract type T from row.
+ * @return A Flow of T.
+ */
+fun <T> Connection.flow(sqlStatement: SqlStatement, extractor: Extractor<T>): Flow<T> = flow {
+    prepareStatement(sqlStatement.sql).use { statement ->
+        sqlStatement.bind(statement)
+        statement.executeQuery().use {
+            while (it.next()) {
+                emit(extractor(it))
+            }
+        }
+    }
+}
 
 /**
  * Perform operations on connection within a transaction. This function will, if any exception

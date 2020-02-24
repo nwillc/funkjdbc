@@ -8,7 +8,7 @@
 <a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="./index.html">ResultSetIterator</a><br/>
 <br/>
 <h1>ResultSetIterator</h1>
-<code><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></code>
 <p>This is an Iterator that iterates over a ResultSet returning elements with an Extractor. Additionally this
 implements AutoCloseable.</p>
 <h3>Constructors</h3>
@@ -16,13 +16,12 @@ implements AutoCloseable.</p>
 <tbody>
 <tr>
 <td>
-<p><a href="-init-.html">&lt;init&gt;</a></p>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<code><span class="identifier">ResultSetIterator</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.ResultSetIterator$<init>(java.sql.ResultSet, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.ResultSetIterator.T)))/resultSet">resultSet</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.ResultSetIterator$<init>(java.sql.ResultSet, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.ResultSetIterator.T)))/extractor">extractor</span><span class="symbol">:</span>&nbsp;<a href="../-extractor.html"><span class="identifier">Extractor</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
 <p>This is an Iterator that iterates over a ResultSet returning elements with an Extractor. Additionally this
 implements AutoCloseable.</p>
-</td>
+<code><span class="identifier">ResultSetIterator</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.ResultSetIterator$<init>(java.sql.ResultSet, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.ResultSetIterator.T)))/resultSet">resultSet</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.ResultSetIterator$<init>(java.sql.ResultSet, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.ResultSetIterator.T)))/extractor">extractor</span><span class="symbol">:</span>&nbsp;<a href="../-extractor.html"><span class="identifier">Extractor</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -31,31 +30,28 @@ implements AutoCloseable.</p>
 <tbody>
 <tr>
 <td>
-<p><a href="close.html">close</a></p>
+<h4><a href="close.html">close</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">close</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
 <p>Closes this resource, relinquishing any underlying resources.</p>
-</td>
+<code><span class="keyword">fun </span><span class="identifier">close</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="has-next.html">hasNext</a></p>
+<h4><a href="has-next.html">hasNext</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">hasNext</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
 <p>Returns true if the iteration has more elements.</p>
-</td>
+<code><span class="keyword">fun </span><span class="identifier">hasNext</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="next.html">next</a></p>
+<h4><a href="next.html">next</a></h4>
 </td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">next</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
 <p>Returns the next element in the iteration. Applies the extractor to the result set to
 derive the element.</p>
-</td>
+<code><span class="keyword">fun </span><span class="identifier">next</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span></code></td>
 </tr>
 </tbody>
 </table>

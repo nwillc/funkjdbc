@@ -1,4 +1,6 @@
+import java.net.URL
 import com.jfrog.bintray.gradle.BintrayExtension
+import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
@@ -24,7 +26,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.8.1-SNAPSHOT"
+version = "0.9.0-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -34,6 +36,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
@@ -110,6 +113,16 @@ tasks {
         testLogging {
             showStandardStreams = true
             events("passed", "failed", "skipped")
+        }
+    }
+    withType<DokkaTask> {
+        outputFormat = "html"
+        outputDirectory = "docs/dokka"
+        configuration {
+            externalDocumentationLink {
+                url = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/")
+                packageListUrl = URL("file://${project.rootDir}/docs/kotlinx-coroutines-list")
+            }
         }
     }
     withType<JacocoReport> {
