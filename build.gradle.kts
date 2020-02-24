@@ -1,5 +1,5 @@
-import java.net.URL
 import com.jfrog.bintray.gradle.BintrayExtension
+import java.net.URL
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 

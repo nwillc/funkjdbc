@@ -18,14 +18,14 @@
 package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.WithConnection
+import java.sql.ResultSet
+import java.sql.SQLException
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.Test
-import java.sql.ResultSet
-import java.sql.SQLException
 
 class ConnectionExtensionsKtTest : WithConnection() {
 

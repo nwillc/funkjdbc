@@ -17,11 +17,10 @@
 
 package com.github.nwillc.funkjdbc
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.sql.Connection
 import java.sql.ResultSet
-
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
