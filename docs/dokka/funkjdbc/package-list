@@ -1,9 +1,9 @@
 $dokka.format:html
 $dokka.linkExtension:html
+$dokka.location:com.github.nwillc.funkjdbc$asFlow(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.asFlow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/as-flow.html
+$dokka.location:com.github.nwillc.funkjdbc$asFlow(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.asFlow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/as-flow.html
 $dokka.location:com.github.nwillc.funkjdbc$find(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))com.github.nwillc.funkjdbc/java.sql.-connection/find.html
 $dokka.location:com.github.nwillc.funkjdbc$find(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))com.github.nwillc.funkjdbc/java.sql.-connection/find.html
-$dokka.location:com.github.nwillc.funkjdbc$flow(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.flow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/flow.html
-$dokka.location:com.github.nwillc.funkjdbc$flow(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.flow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/flow.html
 $dokka.location:com.github.nwillc.funkjdbc$query(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.query.T)), kotlin.Function1((kotlin.sequences.Sequence((com.github.nwillc.funkjdbc.query.T)), com.github.nwillc.funkjdbc.query.R)))com.github.nwillc.funkjdbc/java.sql.-connection/query.html
 $dokka.location:com.github.nwillc.funkjdbc$query(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.query.T)), kotlin.Function1((kotlin.sequences.Sequence((com.github.nwillc.funkjdbc.query.T)), com.github.nwillc.funkjdbc.query.R)))com.github.nwillc.funkjdbc/java.sql.-connection/query.html
 $dokka.location:com.github.nwillc.funkjdbc$transaction(java.sql.Connection, kotlin.Function1((java.sql.Connection, kotlin.Unit)))com.github.nwillc.funkjdbc/java.sql.-connection/transaction.html

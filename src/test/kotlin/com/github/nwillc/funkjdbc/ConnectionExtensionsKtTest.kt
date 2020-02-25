@@ -23,8 +23,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -106,10 +105,9 @@ class ConnectionExtensionsKtTest : WithConnection() {
     fun `should be able to find as flow`() {
         runBlocking {
             val flowContained = mutableListOf<String>()
-            connection.flow("SELECT * FROM WORDS") { rs -> rs.getString(1) }
-                .collect {
-                    flowContained.add(it)
-                }
+            connection.asFlow("SELECT * FROM WORDS") { rs -> rs.getString(1) }
+                .toList(flowContained)
+
             assertThat(flowContained).containsExactly("a", "b", "c")
         }
     }
@@ -120,19 +118,14 @@ class ConnectionExtensionsKtTest : WithConnection() {
         val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
             it.setString(1, word)
         }
-        var done = false
-        GlobalScope.launch {
+        runBlocking {
             val flowContained = mutableListOf<String>()
-            connection.flow(sqlStatement) { rs -> rs.getString(1) }
+            connection.asFlow(sqlStatement) { rs -> rs.getString(1) }
                 .collect {
                     flowContained.add(it)
                 }
             assertThat(flowContained).containsExactly("b", "c")
-            println("in")
-            done = true
         }
-        await().atMost(10, TimeUnit.SECONDS).until { done }
-        println("out")
     }
 
     @Test

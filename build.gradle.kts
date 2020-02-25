@@ -123,7 +123,7 @@ tasks {
         outputDirectory = "docs/dokka"
         configuration {
             externalDocumentationLink {
-                url = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/")
+                url = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/")
                 packageListUrl = URL("file://${project.rootDir}/docs/kotlinx-coroutines-list")
             }
         }

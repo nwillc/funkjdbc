@@ -95,7 +95,7 @@ fun <T> Connection.find(sql: String, extractor: Extractor<T>): List<T> =
 /**
  * A convenience function to execute a SQL query on a JDBC Connection. The SQL is a query
  * with the aim of retrieving matching rows. This could also be achieved with query and an appropriate
- * results processor.
+ * result processor.
  * @param sqlStatement A SqlStatement containing a query allowing for parameters.
  * @param extractor A function to extract type T from the rows.
  * @return The matching rows.
@@ -113,8 +113,9 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
  * @param sql The SQL to execute.
  * @param extractor A function to extract type T from row.
  * @return A Flow of T.
+ * @since 0.9.1
  */
-fun <T> Connection.flow(sql: String, extractor: Extractor<T>): Flow<T> = flow {
+fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow {
     createStatement().use { statement ->
         statement.executeQuery(sql).use {
             while (it.next()) {
@@ -129,8 +130,9 @@ fun <T> Connection.flow(sql: String, extractor: Extractor<T>): Flow<T> = flow {
  * @param sqlStatement The SQL to execute.
  * @param extractor A function to extract type T from row.
  * @return A Flow of T.
+ * @since 0.9.1
  */
-fun <T> Connection.flow(sqlStatement: SqlStatement, extractor: Extractor<T>): Flow<T> = flow {
+fun <T> Connection.asFlow(sqlStatement: SqlStatement, extractor: Extractor<T>): Flow<T> = flow {
     prepareStatement(sqlStatement.sql).use { statement ->
         sqlStatement.bind(statement)
         statement.executeQuery().use {

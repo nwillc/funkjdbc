@@ -10,18 +10,18 @@ Nothing exciting but...
 
  - Row to object mapping with higher order functions.
  - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases:
-   - update, query, transaction
- - Provide results as a Sequence.
- - Thoroughly handled resource closing to remove boiler plate code. 
- - Supports raw String SQL as well as JDBC’s ? replacements
- - Simple as dirt
- - Under 200 lines of code
- - documented
- - Not a single transitive dependency … so >10k binary all in
+   - update, query/find, transaction
+ - Provide results as a Sequence or Kotlin Flow.
+ - Thoroughly handled resource closing to remove boiler plate code.
+ - Supports raw String SQL as well as JDBC’s ? replacements.
+ - Simple.
+    - Under 300 lines of code.
+ - Documented.
+ - Not a single transitive dependency … so >15k binary all in
 
 ## Using These Extensions
 
-Assuming you've a JDBC Connection and wish to create a database to store word counts. Lets create 
+Assuming you've a JDBC Connection and wish to create a database to store word counts. Lets create
 that table:
 
 ```kotlin
@@ -55,14 +55,14 @@ val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() 
 Or create a parameterized query based on the counts:
 
 ```kotlin
-data class SelectCountLTE(var value: Int = 0) : 
+data class SelectCountLTE(var value: Int = 0) :
   SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
-  override val bind: Binder = { it.setInt(1, value) } 
+  override val bind: Binder = { it.setInt(1, value) }
 }
 
 val sql = SelectCountLTE(1)
 connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
- 
+
 sql.value = 200
 connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
 
