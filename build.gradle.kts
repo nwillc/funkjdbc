@@ -26,7 +26,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.9.0"
+version = "0.9.1"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -38,6 +38,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
+    testImplementation("org.awaitility:awaitility:4.0.2")
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
 

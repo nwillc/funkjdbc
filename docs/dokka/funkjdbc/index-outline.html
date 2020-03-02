@@ -25,6 +25,19 @@
 <BODY>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-binder.html"><span class="keyword">typealias </span><span class="identifier">Binder</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html"><span class="identifier">PreparedStatement</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></a></a><br/>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-extractor.html"><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/java.io.-file/index.html"><span class="identifier">java.io.File</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/java.io.-file/sql-scripts.html"><span class="keyword">fun </span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">.</span><span class="identifier">sqlScripts</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/java.sql.-connection/index.html"><span class="identifier">java.sql.Connection</span></a></a><br/>
 <ul>
 <HTML>
@@ -46,6 +59,19 @@
 </BODY>
 </HTML>
 </ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/kotlin.-any/index.html"><span class="identifier">kotlin.Any</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/kotlin.-any/sql-for.html"><span class="keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">.</span><span class="identifier">sqlFor</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.testing$sqlFor(kotlin.Any, com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/executionPhase">executionPhase</span><span class="symbol">:</span>&nbsp;<span class="identifier">ExecutionPhase</span>&nbsp;<span class="symbol">=</span>&nbsp;Sql.ExecutionPhase.BEFORE_TEST_METHOD<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-result-set-iterator/index.html"><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></a></a><br/>
 <ul>
 <HTML>
@@ -63,6 +89,50 @@
 </HTML>
 </ul>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-results-processor.html"><span class="keyword">typealias </span><span class="identifier">ResultsProcessor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">@Target</span><span class="symbol">(</span>[AnnotationTarget.CLASS]<span class="symbol">)</span> <span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">Sql</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-init-.html"><span class="identifier">Sql</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sql$<init>(kotlin.Array((kotlin.String)), com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sql$<init>(kotlin.Array((kotlin.String)), com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/executionPhase">executionPhase</span><span class="symbol">:</span>&nbsp;<span class="identifier">ExecutionPhase</span>&nbsp;<span class="symbol">=</span>&nbsp;ExecutionPhase.BEFORE_TEST_METHOD<span class="symbol">)</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/index.html"><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ExecutionPhase</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/-a-f-t-e-r_-t-e-s-t_-m-e-t-h-o-d.html"><span class="identifier">AFTER_TEST_METHOD</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/-b-e-f-o-r-e_-t-e-s-t_-m-e-t-h-o-d.html"><span class="identifier">BEFORE_TEST_METHOD</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/execution-phase.html"><span class="keyword">val </span><span class="identifier">executionPhase</span><span class="symbol">: </span><span class="identifier">ExecutionPhase</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-f-i-l-e_-e-x-t-e-n-s-i-o-n.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">FILE_EXTENSION</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/value.html"><span class="keyword">vararg</span> <span class="keyword">val </span><span class="identifier">value</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/index.html"><span class="identifier">@Target</span><span class="symbol">(</span>[AnnotationTarget.CLASS]<span class="symbol">)</span> <span class="identifier">@Inherited</span> <span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">Sqls</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/-init-.html"><span class="identifier">Sqls</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sqls$<init>(kotlin.Array((com.github.nwillc.funkjdbc.testing.Sql)))/value">value</span><span class="symbol">:</span>&nbsp;<a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">Sql</span></a><span class="symbol">)</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/value.html"><span class="keyword">vararg</span> <span class="keyword">val </span><span class="identifier">value</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">Sql</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-sql-statement/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></a></a><br/>
 <ul>
 <HTML>
@@ -142,6 +212,88 @@
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-sql-statement/-init-.html"><span class="identifier">SqlStatement</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/bind">bind</span><span class="symbol">:</span>&nbsp;<a href="com.github.nwillc.funkjdbc/-binder.html"><span class="identifier">Binder</span></a>&nbsp;<span class="symbol">=</span>&nbsp;{}<span class="symbol">)</span></a></a><br/>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-sql-statement/bind.html"><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">bind</span><span class="symbol">: </span><a href="com.github.nwillc.funkjdbc/-binder.html"><span class="identifier">Binder</span></a></a></a><br/>
 <a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc/-sql-statement/sql.html"><span class="keyword">val </span><span class="identifier">sql</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/index.html"><span class="keyword">package</span>&nbsp;<span class="identifier">com.github.nwillc.funkjdbc.testing</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/java.io.-file/index.html"><span class="identifier">java.io.File</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/java.io.-file/sql-scripts.html"><span class="keyword">fun </span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">.</span><span class="identifier">sqlScripts</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/kotlin.-any/index.html"><span class="identifier">kotlin.Any</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/kotlin.-any/sql-for.html"><span class="keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">.</span><span class="identifier">sqlFor</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.testing$sqlFor(kotlin.Any, com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/executionPhase">executionPhase</span><span class="symbol">:</span>&nbsp;<span class="identifier">ExecutionPhase</span>&nbsp;<span class="symbol">=</span>&nbsp;Sql.ExecutionPhase.BEFORE_TEST_METHOD<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">@Target</span><span class="symbol">(</span>[AnnotationTarget.CLASS]<span class="symbol">)</span> <span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">Sql</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-init-.html"><span class="identifier">Sql</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sql$<init>(kotlin.Array((kotlin.String)), com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sql$<init>(kotlin.Array((kotlin.String)), com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)/executionPhase">executionPhase</span><span class="symbol">:</span>&nbsp;<span class="identifier">ExecutionPhase</span>&nbsp;<span class="symbol">=</span>&nbsp;ExecutionPhase.BEFORE_TEST_METHOD<span class="symbol">)</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/index.html"><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">ExecutionPhase</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/-a-f-t-e-r_-t-e-s-t_-m-e-t-h-o-d.html"><span class="identifier">AFTER_TEST_METHOD</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-execution-phase/-b-e-f-o-r-e_-t-e-s-t_-m-e-t-h-o-d.html"><span class="identifier">BEFORE_TEST_METHOD</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/execution-phase.html"><span class="keyword">val </span><span class="identifier">executionPhase</span><span class="symbol">: </span><span class="identifier">ExecutionPhase</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/-f-i-l-e_-e-x-t-e-n-s-i-o-n.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">FILE_EXTENSION</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sql/value.html"><span class="keyword">vararg</span> <span class="keyword">val </span><span class="identifier">value</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/index.html"><span class="identifier">@Target</span><span class="symbol">(</span>[AnnotationTarget.CLASS]<span class="symbol">)</span> <span class="identifier">@Inherited</span> <span class="keyword">annotation</span> <span class="keyword">class </span><span class="identifier">Sqls</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Module Contents</title>
+<link rel="stylesheet" href="../style.css">
+</HEAD>
+<BODY>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/-init-.html"><span class="identifier">Sqls</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="com.github.nwillc.funkjdbc.testing.Sqls$<init>(kotlin.Array((com.github.nwillc.funkjdbc.testing.Sql)))/value">value</span><span class="symbol">:</span>&nbsp;<a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">Sql</span></a><span class="symbol">)</span></a></a><br/>
+<a href="docs/dokka/funkjdbc/index"><a href="com.github.nwillc.funkjdbc.testing/-sqls/value.html"><span class="keyword">vararg</span> <span class="keyword">val </span><span class="identifier">value</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="com.github.nwillc.funkjdbc.testing/-sql/index.html"><span class="identifier">Sql</span></a><span class="symbol">&gt;</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>

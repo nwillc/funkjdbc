@@ -18,11 +18,10 @@
 package com.github.nwillc.funkjdbc.testing
 
 import com.github.nwillc.funkjdbc.update
-import java.io.File
-import java.sql.DriverManager
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
+import java.sql.DriverManager
 
 class EmbeddedDb : BeforeEachCallback, AfterEachCallback {
     companion object {
@@ -30,23 +29,26 @@ class EmbeddedDb : BeforeEachCallback, AfterEachCallback {
         private val driver = "org.h2.Driver"
         private val user = "sa"
         private val password = ""
-        private val migrations = "src/test/resources/db/migrations"
     }
 
     override fun beforeEach(context: ExtensionContext) {
         Class.forName(driver)
         val connection = DriverManager.getConnection(url, user, password)!!
-        File(migrations)
-            .walk()
-            .filter { it.isFile && it.path.endsWith(".sql", true) }
-            .sorted()
+        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.BEFORE_TEST_METHOD)
             .forEach {
+                println("Running $it")
                 connection.update(it.readText())
             }
         (context.requiredTestInstance as WithConnection).connection = connection
     }
 
     override fun afterEach(context: ExtensionContext) {
-        (context.requiredTestInstance as WithConnection).connection.close()
+        val connection = (context.requiredTestInstance as WithConnection).connection
+        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.AFTER_TEST_METHOD)
+            .forEach {
+                println("Running $it")
+                connection.update(it.readText())
+            }
+        connection.close()
     }
 }

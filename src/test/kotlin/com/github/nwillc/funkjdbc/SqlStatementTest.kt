@@ -17,10 +17,12 @@
 
 package com.github.nwillc.funkjdbc
 
+import com.github.nwillc.funkjdbc.testing.Sql
 import com.github.nwillc.funkjdbc.testing.WithConnection
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
+@Sql("src/test/resources/db/migrations")
 class SqlStatementTest : WithConnection() {
 
     @Test

@@ -17,16 +17,22 @@
 
 package com.github.nwillc.funkjdbc
 
+import com.github.nwillc.funkjdbc.testing.Sql
 import com.github.nwillc.funkjdbc.testing.WithConnection
-import java.sql.ResultSet
-import java.sql.SQLException
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.Assertions.entry
+import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Test
+import java.sql.ResultSet
+import java.sql.SQLException
+import java.util.concurrent.TimeUnit
 
+@Sql("src/test/resources/db/migrations")
 class ConnectionExtensionsKtTest : WithConnection() {
 
     @Test
@@ -114,14 +120,19 @@ class ConnectionExtensionsKtTest : WithConnection() {
         val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
             it.setString(1, word)
         }
-        runBlocking {
+        var done = false
+        GlobalScope.launch {
             val flowContained = mutableListOf<String>()
             connection.flow(sqlStatement) { rs -> rs.getString(1) }
                 .collect {
                     flowContained.add(it)
                 }
             assertThat(flowContained).containsExactly("b", "c")
+            println("in")
+            done = true
         }
+        await().atMost(10, TimeUnit.SECONDS).until { done }
+        println("out")
     }
 
     @Test
