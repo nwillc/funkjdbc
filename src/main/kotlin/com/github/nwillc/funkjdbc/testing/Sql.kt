@@ -102,4 +102,3 @@ fun File.sqlScripts(): List<File> = when {
             .toList()
     else -> emptyList()
 }
-

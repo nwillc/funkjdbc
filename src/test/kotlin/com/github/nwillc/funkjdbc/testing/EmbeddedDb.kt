@@ -18,10 +18,10 @@
 package com.github.nwillc.funkjdbc.testing
 
 import com.github.nwillc.funkjdbc.update
+import java.sql.DriverManager
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
-import java.sql.DriverManager
 
 class EmbeddedDb : BeforeEachCallback, AfterEachCallback {
     companion object {

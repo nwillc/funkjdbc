@@ -19,8 +19,11 @@ package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.Sql
 import com.github.nwillc.funkjdbc.testing.WithConnection
-import kotlinx.coroutines.GlobalScope
+import java.sql.ResultSet
+import java.sql.SQLException
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
@@ -28,9 +31,6 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.Assertions.entry
 import org.awaitility.Awaitility.await
 import org.junit.jupiter.api.Test
-import java.sql.ResultSet
-import java.sql.SQLException
-import java.util.concurrent.TimeUnit
 
 @Sql("src/test/resources/db/migrations")
 class ConnectionExtensionsKtTest : WithConnection() {
