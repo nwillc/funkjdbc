@@ -7,6 +7,7 @@ val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
 
 val assertjVarsion: String by project
+val awaitilityVersion: String by project
 val coroutinesVersion: String by project
 val detektToolVersion: String by project
 val h2Version: String by project
@@ -15,18 +16,18 @@ val jupiterVersion: String by project
 val ktlintVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version "1.3.70"
     jacoco
     `maven-publish`
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.github.nwillc.vplugin") version "3.0.1"
-    id("io.gitlab.arturbosch.detekt") version "1.5.1"
+    id("io.gitlab.arturbosch.detekt") version "1.6.0"
     id("com.jfrog.bintray") version "1.8.4"
 }
 
 group = "com.github.nwillc"
-version = "0.9.1"
+version = "0.9.2"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -38,11 +39,11 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-    testImplementation("org.awaitility:awaitility:4.0.2")
+    testImplementation("org.awaitility:awaitility:$awaitilityVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
     testImplementation("org.assertj:assertj-core:$assertjVarsion")
 
-    testRuntime("com.h2database:h2:$h2Version")
+    testRuntimeOnly("com.h2database:h2:$h2Version")
 }
 
 ktlint {
