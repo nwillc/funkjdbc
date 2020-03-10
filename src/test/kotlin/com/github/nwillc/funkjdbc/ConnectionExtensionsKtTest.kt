@@ -181,8 +181,8 @@ class ConnectionExtensionsKtTest : WithConnection() {
             it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('d', 10)")
         }
         val found = connection.find(
-            "SELECT * FROM WORDS WHERE WORD = 'd'",
-            { rs -> rs.getString(1) })
+            "SELECT * FROM WORDS WHERE WORD = 'd'"
+        ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(1)
     }
 
@@ -197,10 +197,10 @@ class ConnectionExtensionsKtTest : WithConnection() {
             }
         } catch (e: Exception) {
         }
-        assertThat(ran).isTrue()
+        assertThat(ran).isTrue
         val found = connection.find(
-            "SELECT * FROM WORDS WHERE WORD = 'd'",
-            { rs -> rs.getString(1) })
+            "SELECT * FROM WORDS WHERE WORD = 'd'"
+        ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(0)
     }
 }
