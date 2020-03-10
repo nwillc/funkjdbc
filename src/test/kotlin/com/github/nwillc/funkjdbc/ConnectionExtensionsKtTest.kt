@@ -19,7 +19,6 @@ package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedDb
 import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.Sqls
 import com.github.nwillc.funkjdbc.testing.getH2Connection
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
@@ -35,10 +34,7 @@ import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.SQLException
 
-@Sqls(
-    Sql("src/test/resources/db/migrations", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-    Sql("src/test/resources/db/clean", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-)
+@Sql("src/test/resources/db/migrations")
 @ExtendWith(EmbeddedDb::class)
 class ConnectionExtensionsKtTest {
     private lateinit var connection: Connection

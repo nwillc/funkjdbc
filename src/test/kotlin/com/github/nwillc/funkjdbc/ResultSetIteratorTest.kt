@@ -19,7 +19,6 @@ package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedDb
 import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.Sqls
 import com.github.nwillc.funkjdbc.testing.getH2Connection
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -29,10 +28,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
 
-@Sqls(
-    Sql("src/test/resources/db/migrations", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
-    Sql("src/test/resources/db/clean", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-)
+@Sql("src/test/resources/db/migrations")
 @ExtendWith(EmbeddedDb::class)
 internal class ResultSetIteratorTest {
     private lateinit var connection: Connection
