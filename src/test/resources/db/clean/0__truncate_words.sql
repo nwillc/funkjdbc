@@ -15,12 +15,4 @@
  *
  */
 
-package com.github.nwillc.funkjdbc.testing
-
-import java.sql.Connection
-import org.junit.jupiter.api.extension.ExtendWith
-
-@ExtendWith(EmbeddedDb::class)
-open class WithConnection {
-    lateinit var connection: Connection
-}
+ TRUNCATE TABLE WORDS;

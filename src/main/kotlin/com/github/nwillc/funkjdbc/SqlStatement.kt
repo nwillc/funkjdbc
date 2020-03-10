@@ -23,7 +23,7 @@ import java.sql.PreparedStatement
 typealias Binder = (PreparedStatement) -> Unit
 
 /**
- * A SQL string, with a binding block to help with JDBC PreparedStatemets. The sql String
+ * A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
  * excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
  * to those '?'s on a given PreparedStatement.
  *
@@ -33,8 +33,8 @@ typealias Binder = (PreparedStatement) -> Unit
  *   it.setInt(1, someValue)
  * }
  * ```
- * However, this class and the bind property are `open`. This is done to allow subclassing to create specific
- * queries with typed arguments in a clean fashion:
+ * However, this class, and the bind property are `open`. This is done to allow subclassing to create specific
+ * queries with typed arguments:
  *
  * ```
  * data class SelectCountLTE(var value: Int = 0) :

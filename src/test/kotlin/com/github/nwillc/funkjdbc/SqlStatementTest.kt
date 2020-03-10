@@ -17,13 +17,34 @@
 
 package com.github.nwillc.funkjdbc
 
+import com.github.nwillc.funkjdbc.testing.EmbeddedDb
 import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.WithConnection
+import com.github.nwillc.funkjdbc.testing.Sqls
+import com.github.nwillc.funkjdbc.testing.getH2Connection
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import java.sql.Connection
 
-@Sql("src/test/resources/db/migrations")
-class SqlStatementTest : WithConnection() {
+@Sqls(
+    Sql("src/test/resources/db/migrations", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+    Sql("src/test/resources/db/clean", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+)
+@ExtendWith(EmbeddedDb::class)
+class SqlStatementTest {
+    private lateinit var connection: Connection
+
+    @BeforeEach
+    fun setUp(dbConfig: DBConfig) {
+        connection = dbConfig.getH2Connection()
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        connection.close()
+    }
 
     @Test
     fun `should bind arguments`() {

@@ -17,10 +17,10 @@
 
 package com.github.nwillc.funkjdbc.testing
 
-import java.io.File
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.io.File
 
 @Sql("foo", "bar")
 @Sqls(

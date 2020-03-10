@@ -17,20 +17,41 @@
 
 package com.github.nwillc.funkjdbc
 
+import com.github.nwillc.funkjdbc.testing.EmbeddedDb
 import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.WithConnection
+import com.github.nwillc.funkjdbc.testing.Sqls
+import com.github.nwillc.funkjdbc.testing.getH2Connection
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.assertj.core.api.Assertions.entry
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import java.sql.Connection
 import java.sql.ResultSet
 import java.sql.SQLException
 
-@Sql("src/test/resources/db/migrations")
-class ConnectionExtensionsKtTest : WithConnection() {
+@Sqls(
+    Sql("src/test/resources/db/migrations", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+    Sql("src/test/resources/db/clean", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+)
+@ExtendWith(EmbeddedDb::class)
+class ConnectionExtensionsKtTest {
+    private lateinit var connection: Connection
+
+    @BeforeEach
+    fun setUp(dbConfig: DBConfig) {
+        connection = dbConfig.getH2Connection()
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        connection.close()
+    }
 
     @Test
     fun `should be able to update`() {
@@ -197,7 +218,7 @@ class ConnectionExtensionsKtTest : WithConnection() {
             }
         } catch (e: Exception) {
         }
-        assertThat(ran).isTrue
+        assertThat(ran).isTrue()
         val found = connection.find(
             "SELECT * FROM WORDS WHERE WORD = 'd'"
         ) { rs -> rs.getString(1) }
