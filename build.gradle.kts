@@ -1,4 +1,5 @@
 import com.jfrog.bintray.gradle.BintrayExtension
+import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import java.net.URL
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -27,7 +28,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.9.3-SNAPSHOT"
+version = "0.9.3"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -136,6 +137,16 @@ tasks {
             }
             html.apply {
                 isEnabled = true
+            }
+        }
+    }
+    withType<BintrayUploadTask> {
+        onlyIf {
+            if (project.version.toString().contains('-')) {
+                logger.lifecycle("Version v${project.version} is not a release version - skipping upload.")
+                false
+            } else {
+                true
             }
         }
     }
