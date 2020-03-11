@@ -9,7 +9,4 @@ $dokka.location:com.github.nwillc.funkjdbc$query(java.sql.Connection, kotlin.Str
 $dokka.location:com.github.nwillc.funkjdbc$transaction(java.sql.Connection, kotlin.Function1((java.sql.Connection, kotlin.Unit)))com.github.nwillc.funkjdbc/java.sql.-connection/transaction.html
 $dokka.location:com.github.nwillc.funkjdbc$update(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement)com.github.nwillc.funkjdbc/java.sql.-connection/update.html
 $dokka.location:com.github.nwillc.funkjdbc$update(java.sql.Connection, kotlin.String)com.github.nwillc.funkjdbc/java.sql.-connection/update.html
-$dokka.location:com.github.nwillc.funkjdbc.testing$sqlFor(kotlin.Any, com.github.nwillc.funkjdbc.testing.Sql.ExecutionPhase)com.github.nwillc.funkjdbc.testing/kotlin.-any/sql-for.html
-$dokka.location:com.github.nwillc.funkjdbc.testing$sqlScripts(java.io.File)com.github.nwillc.funkjdbc.testing/java.io.-file/sql-scripts.html
 com.github.nwillc.funkjdbc
-com.github.nwillc.funkjdbc.testing
