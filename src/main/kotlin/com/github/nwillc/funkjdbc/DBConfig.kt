@@ -39,12 +39,15 @@ data class DBConfig(
     val password: String = "",
     val toUrl: (config: DBConfig) -> String
 ) {
+    val url: String
+        get() = toUrl(this)
+
     /**
      * Return a connection for this [DBConfig].
      * @return A JDBC [Connection] based on this configuration.
      */
     fun getConnection(): Connection {
         Class.forName(driver)
-        return DriverManager.getConnection(toUrl(this), user, password)!!
+        return DriverManager.getConnection(url, user, password)!!
     }
 }
