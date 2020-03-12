@@ -18,6 +18,8 @@
 package com.github.nwillc.funkjdbc.testing
 
 import com.github.nwillc.funkjdbc.DBConfig
+import com.github.nwillc.funkjdbc.Sql
+import com.github.nwillc.funkjdbc.sqlFor
 import com.github.nwillc.funkjdbc.update
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
@@ -25,13 +27,12 @@ import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.ParameterContext
 import org.junit.jupiter.api.extension.ParameterResolver
 import java.sql.Connection
-import java.sql.DriverManager
 import java.util.logging.Logger
 
 class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
     private var dbConfig = DBConfig(
         driver = "org.h2.Driver"
-    )
+    ) { config -> "jdbc:h2:mem:${config.database}" }
     private lateinit var connection: Connection
 
     override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean {
@@ -43,8 +44,8 @@ class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
     }
 
     override fun beforeEach(context: ExtensionContext) {
-        connection = dbConfig.getH2Connection()
-        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+        connection = dbConfig.getConnection()
+        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.SETUP)
             .forEach {
                 logger.fine("Running $it")
                 connection.update(it.readText())
@@ -52,7 +53,7 @@ class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
     }
 
     override fun afterEach(context: ExtensionContext) {
-        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.AFTER_TEST_METHOD)
+        context.requiredTestInstance.sqlFor(Sql.ExecutionPhase.TEARDOWN)
             .forEach {
                 logger.fine("Running $it")
                 connection.update(it.readText())
@@ -63,9 +64,4 @@ class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
     companion object {
         private val logger = Logger.getLogger(EmbeddedDb::class.java.simpleName)
     }
-}
-
-fun DBConfig.getH2Connection(): Connection {
-    Class.forName(driver)
-    return DriverManager.getConnection("jdbc:h2:mem:$database", user, password)!!
 }

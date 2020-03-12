@@ -18,8 +18,6 @@
 package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedDb
-import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.getH2Connection
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -41,7 +39,7 @@ class ConnectionExtensionsKtTest {
 
     @BeforeEach
     fun setUp(dbConfig: DBConfig) {
-        connection = dbConfig.getH2Connection()
+        connection = dbConfig.getConnection()
     }
 
     @AfterEach

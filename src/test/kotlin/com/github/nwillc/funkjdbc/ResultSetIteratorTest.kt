@@ -18,8 +18,6 @@
 package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedDb
-import com.github.nwillc.funkjdbc.testing.Sql
-import com.github.nwillc.funkjdbc.testing.getH2Connection
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
@@ -35,7 +33,7 @@ internal class ResultSetIteratorTest {
 
     @BeforeEach
     fun setUp(dbConfig: DBConfig) {
-        connection = dbConfig.getH2Connection()
+        connection = dbConfig.getConnection()
     }
 
     @AfterEach

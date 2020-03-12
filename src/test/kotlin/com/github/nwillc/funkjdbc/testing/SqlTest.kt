@@ -17,6 +17,10 @@
 
 package com.github.nwillc.funkjdbc.testing
 
+import com.github.nwillc.funkjdbc.Sql
+import com.github.nwillc.funkjdbc.Sqls
+import com.github.nwillc.funkjdbc.sqlFor
+import com.github.nwillc.funkjdbc.sqlScripts
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -25,7 +29,7 @@ import java.io.File
 @Sql("foo", "bar")
 @Sqls(
     Sql("src/test/resources/db/migrations"),
-    Sql("bif", "baz", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    Sql("bif", "baz", executionPhase = Sql.ExecutionPhase.TEARDOWN)
 )
 class SqlTest {
     lateinit var sql: Sql

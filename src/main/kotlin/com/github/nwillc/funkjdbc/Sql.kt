@@ -15,9 +15,9 @@
  *
  */
 
-package com.github.nwillc.funkjdbc.testing
+package com.github.nwillc.funkjdbc
 
-import com.github.nwillc.funkjdbc.testing.Sql.Companion.FILE_EXTENSION
+import com.github.nwillc.funkjdbc.Sql.Companion.FILE_EXTENSION
 import java.io.File
 import java.lang.annotation.Inherited
 
@@ -30,14 +30,16 @@ annotation class Sql(
     /** Script paths. */
     vararg val value: String,
     /** The execution phase of these scripts. */
-    val executionPhase: ExecutionPhase = ExecutionPhase.BEFORE_TEST_METHOD
+    val executionPhase: ExecutionPhase = ExecutionPhase.SETUP
 ) {
     /**
      * Enumeration indicating if a script should be executed before or after a method.
      */
     enum class ExecutionPhase {
-        BEFORE_TEST_METHOD,
-        AFTER_TEST_METHOD
+        /** Set up a database. */
+        SETUP,
+        /** Tear down a database. */
+        TEARDOWN
     }
     companion object {
         const val FILE_EXTENSION = ".sql"
@@ -62,7 +64,7 @@ annotation class Sqls(
  * @return list of SQL scripts.
  * @since 0.9.1
  */
-fun Any.sqlFor(executionPhase: Sql.ExecutionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD): List<File> {
+fun Any.sqlFor(executionPhase: Sql.ExecutionPhase = Sql.ExecutionPhase.SETUP): List<File> {
     val list = mutableListOf<String>()
 
     val sql = javaClass.getAnnotation(Sql::class.java)

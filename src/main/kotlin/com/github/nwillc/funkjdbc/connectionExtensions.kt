@@ -79,8 +79,8 @@ fun <T, R> Connection.query(
 
 /**
  * A convenience function to execute a SQL query on a JDBC Connection. The SQL is expected to be a query
- * with the aim of retrieving matching rows. This could alseo be achieved with query and an appropriate
- * results processor.
+ * with the aim of retrieving matching rows. This could also be achieved with query and an appropriate
+ * result processor.
  * @param sql A simple SQL query.
  * @param extractor A function to extract type T from the rows.
  * @return The matching rows.
