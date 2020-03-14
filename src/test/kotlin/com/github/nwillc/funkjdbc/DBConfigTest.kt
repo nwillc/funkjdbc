@@ -34,6 +34,7 @@ class DBConfigTest {
         assertThat(dbConfig.port).isEqualTo(0)
         assertThat(dbConfig.user).isEqualTo("sa")
         assertThat(dbConfig.password).isEmpty()
+        assertThat(dbConfig.toUrl).isEqualTo(urlGen)
         assertThat(dbConfig.url).isEqualTo(urlGen(dbConfig))
     }
 }
