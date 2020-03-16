@@ -8,16 +8,17 @@
 
 Nothing exciting but...
 
- - Row to object mapping with higher order functions.
+ - Row to object mapping with first order functions.
  - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases:
-   - update, query/find, transaction
- - Provide results as a Sequence or Kotlin Flow.
+   - update, find, transaction
+ - Provide results as a List or Kotlin Flow.
  - Thoroughly handled resource closing to remove boiler plate code.
  - Supports raw String SQL as well as JDBC’s ? replacements.
  - Simple.
-    - Under 300 lines of code.
+    - Implemented as a half dozen Connection extensions.
+    - Under 150 lines of code.
+    - No transitive dependencies (>30k binary).
  - Documented.
- - Not a single transitive dependency … so >15k binary all in
 
 ## Using These Extensions
 
