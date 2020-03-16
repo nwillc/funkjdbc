@@ -46,9 +46,8 @@ class SqlStatementTest {
             it.setInt(1, 5)
         }
 
-        connection.query(sqlStatement, { rs -> rs.getString(1) }) {
-            assertThat(it.count()).isEqualTo(2)
-        }
+        val count = connection.find(sqlStatement) { rs -> rs.getString(1) }.count()
+        assertThat(count).isEqualTo(2)
     }
 
     @Test
@@ -59,13 +58,9 @@ class SqlStatementTest {
         }
 
         val sql = SelectCountLTE(2)
-        connection.query(sql, { rs -> rs.getString(1) }) {
-            assertThat(it.count()).isEqualTo(2)
-        }
+        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(2)
 
         sql.value = 20
-        connection.query(sql, { rs -> rs.getString(1) }) {
-            assertThat(it.count()).isEqualTo(3)
-        }
+        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
     }
 }

@@ -65,7 +65,7 @@ annotation class Sqls(
  * @since 0.9.1
  */
 fun Any.sqlFor(executionPhase: Sql.ExecutionPhase = Sql.ExecutionPhase.SETUP): List<File> {
-    val list = mutableListOf<String>()
+    var list = mutableListOf<String>()
 
     val sql = javaClass.getAnnotation(Sql::class.java)
     val scripts = if (sql != null && sql.executionPhase == executionPhase) sql.value else emptyArray()
@@ -77,8 +77,8 @@ fun Any.sqlFor(executionPhase: Sql.ExecutionPhase = Sql.ExecutionPhase.SETUP): L
         .flatten()
         .toList()
 
-    list += scripts
-    list += scripts2
+    list.addAll(scripts)
+    list.addAll(scripts2)
 
     return list.map { File(it) }
         .map { it.sqlScripts() }

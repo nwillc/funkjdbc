@@ -33,24 +33,7 @@
 </td>
 <td>
 <p>A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.</p>
-<code><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="-result-set-iterator/index.html">ResultSetIterator</a></h4>
-</td>
-<td>
-<p>This is an Iterator that iterates over a ResultSet returning elements with an Extractor. Additionally this
-implements AutoCloseable.</p>
-<code><span class="keyword">class </span><span class="identifier">ResultSetIterator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterator/index.html"><span class="identifier">Iterator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://docs.oracle.com/javase/6/docs/api/java/lang/AutoCloseable.html"><span class="identifier">AutoCloseable</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="-results-processor.html">ResultsProcessor</a></h4>
-</td>
-<td>
-<p>A function accepting a sequence of type T to allow processing and returning the results R.</p>
-<code><span class="keyword">typealias </span><span class="identifier">ResultsProcessor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.sequences/-sequence/index.html"><span class="identifier">Sequence</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span></code></td>
+<code><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span></code></td>
 </tr>
 <tr>
 <td>

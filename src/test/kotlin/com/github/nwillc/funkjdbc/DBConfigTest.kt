@@ -18,14 +18,13 @@
 package com.github.nwillc.funkjdbc
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class DBConfigTest {
     @Test
     fun `should have sane defaults`() {
         val driverClass = "foo"
-        val urlGen: (DBConfig) -> String =  { config -> "-${config.driver}-" }
+        val urlGen: (DBConfig) -> String = { config -> "-${config.driver}-" }
         val dbConfig = DBConfig(driverClass, toUrl = urlGen)
 
         assertThat(dbConfig.driver).isEqualTo(driverClass)

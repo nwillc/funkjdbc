@@ -23,13 +23,11 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
-import java.sql.ResultSet
 import java.sql.SQLException
 
 @Sql("src/test/resources/db/migrations")
@@ -61,7 +59,7 @@ class ConnectionExtensionsKtTest {
     @Test
     fun `should throw exception on bad query sql`() {
         assertThatThrownBy {
-            connection.query("blah blah", { rs -> rs.getInt(1) }) {}
+            connection.find("blah blah") { rs -> rs.getInt(1) }
         }
             .isInstanceOf(SQLException::class.java)
     }
@@ -72,28 +70,6 @@ class ConnectionExtensionsKtTest {
             it.setString(1, "d")
         }
         assertThat(connection.update(sqlStatement)).isEqualTo(1)
-    }
-
-    @Test
-    fun `should be able to query`() {
-        connection.query("SELECT count(*) FROM WORDS", { rs -> rs.getInt(1) }) {
-            assertThat(it.first()).isEqualTo(3)
-        }
-    }
-
-    @Test
-    fun `should be able to query with late bound arguments`() {
-        var word = "a"
-        val sqlStatement = SqlStatement("SELECT count(*) FROM WORDS WHERE WORD = ?") {
-            it.setString(1, word)
-        }
-        connection.query(sqlStatement, { rs -> rs.getInt(1) }) {
-            assertThat(it.first()).isEqualTo(1)
-        }
-        word = "foo"
-        connection.query(sqlStatement, { rs -> rs.getInt(1) }) {
-            assertThat(it.first()).isEqualTo(0)
-        }
     }
 
     @Test
@@ -122,6 +98,21 @@ class ConnectionExtensionsKtTest {
                 .toList(flowContained)
 
             assertThat(flowContained).containsExactly("a", "b", "c")
+        }
+    }
+
+    @Test
+    fun `should be able to find as flow where some extractions are null`() {
+        val extractor: Extractor<String?> = { rs ->
+            val word = rs.getString(1)
+            if (word == "b") null else word
+        }
+        runBlocking {
+            val flowContained = mutableListOf<String>()
+            connection.asFlow("SELECT * FROM WORDS", extractor)
+                .toList(flowContained)
+
+            assertThat(flowContained).containsExactly("a", "c")
         }
     }
 
@@ -177,17 +168,6 @@ class ConnectionExtensionsKtTest {
         }
 
         assertThat(found).isEmpty()
-    }
-
-    @Test
-    fun `should be able you use result of query processor`() {
-        fun pairExtractor(rs: ResultSet) = Pair(
-            rs.getString("WORD")!!,
-            rs.getInt("COUNT")
-        )
-
-        val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
-        assertThat(map).containsExactly(entry("a", 1), entry("b", 2), entry("c", 10))
     }
 
     @Test

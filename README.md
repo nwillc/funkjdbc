@@ -39,17 +39,15 @@ Having created the table and added some rows, now you want to display them:
 ```kotlin
 fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD")!!,rs.getInt("COUNT"))
 
-connection.query("SELECT * FROM WORDS", ::pairExtractor) {
-   it.forEach {
-     println("Word: ${it.first} Count: ${it.second}")
-   }
+connection.find("SELECT * FROM WORDS", ::pairExtractor).forEach {
+   println("Word: ${it.first} Count: ${it.second}")
 }
 ```
 
 Or maybe put them in a Map:
 
 ```kotlin
-val map = connection.query("SELECT * FROM WORDS", ::pairExtractor) { it.toMap() }
+val map = connection.find("SELECT * FROM WORDS", ::pairExtractor).toMap()
 ```
 
 Or create a parameterized query based on the counts:
@@ -61,14 +59,14 @@ data class SelectCountLTE(var value: Int = 0) :
 }
 
 val sql = SelectCountLTE(1)
-connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
+connection.find(sql, {rs -> rs.getInt("count") } ).forEach { println("$it <= ${sql.value}") }
 
 sql.value = 200
-connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= ${sql.value}") } }
+connection.find(sql, {rs -> rs.getInt("count") } ).forEach { println("$it <= ${sql.value}") }
 
 ```
 
-Additionally operations can be performed in a transaction:
+Additionally, operations can be performed in a transaction:
 
 ```kotlin
 try {
