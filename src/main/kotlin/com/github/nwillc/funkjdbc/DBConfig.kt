@@ -37,10 +37,11 @@ data class DBConfig(
     val port: Int = 0,
     val user: String = "sa",
     val password: String = "",
-    val toUrl: (config: DBConfig) -> String
+    internal val toUrl: (config: DBConfig) -> String
 ) {
+    /** The JDBC url resulting from the toUrl function applied to this instance. **/
     val url: String
-        get() = toUrl(this)
+        get() = this.toUrl(this)
 
     /**
      * Return a connection for this [DBConfig].
