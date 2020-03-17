@@ -149,13 +149,12 @@ class ConnectionExtensionsKtTest {
         val sql = SqlStatement("SELECT * FROM WORDS WHERE WORD = ?") {
             it.setString(1, "a")
         }
-        connection.use {
-            val found = it.find(sql) { rs ->
-                rs.getString(1)
-            }
 
-            assertThat(found.first()).isEqualTo("a")
+        val found = connection.find(sql) { rs ->
+            rs.getString(1)
         }
+
+        assertThat(found.first()).isEqualTo("a")
     }
 
     @Test

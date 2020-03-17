@@ -52,7 +52,7 @@ class SqlStatementTest {
 
     @Test
     fun `should rebind arguments`() {
-        data class SelectCountLTE(var value: Int = 0) :
+        class SelectCountLTE(var value: Int = 0) :
             SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
             override val bind: Binder = { it.setInt(1, value) }
         }
