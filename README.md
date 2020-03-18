@@ -35,7 +35,13 @@ Now you want to add a row noting 10 occurrences of the word `foo`:
  connection.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('foo', 10)")
 ```
 
-Having created the table and added some rows, now you want to display them:
+Having created the table and added some rows, maybe you want to see the words:
+
+```kotlin
+val words = connection.find("SELECT WORD FROM WORD") { rs -> getString(1) }
+```
+
+Or you want to display them as Pairs:
 
 ```kotlin
 fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD")!!,rs.getInt("COUNT"))
