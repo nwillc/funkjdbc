@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DBConfig - funkjdbc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="./index.html">DBConfig</a><br/>
+<br/>
+<h1>DBConfig</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">DBConfig</span></code>
+<p>JDBC Database configuration information.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>JDBC Database configuration information.</p>
+<code><span class="identifier">DBConfig</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/driver">driver</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/host">host</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"localhost"<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/database">database</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"public"<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/port">port</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/user">user</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"sa"<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/password">password</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;""<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.DBConfig$<init>(kotlin.String, kotlin.String, kotlin.String, kotlin.Int, kotlin.String, kotlin.String, kotlin.Function1((com.github.nwillc.funkjdbc.DBConfig, kotlin.String)))/toUrl">toUrl</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">config</span><span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">DBConfig</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="database.html">database</a></h4>
+</td>
+<td>
+<p>The database/schema name.</p>
+<code><span class="keyword">val </span><span class="identifier">database</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="driver.html">driver</a></h4>
+</td>
+<td>
+<p>The JDBC driver class.</p>
+<code><span class="keyword">val </span><span class="identifier">driver</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="host.html">host</a></h4>
+</td>
+<td>
+<p>THe host of the server.</p>
+<code><span class="keyword">val </span><span class="identifier">host</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="password.html">password</a></h4>
+</td>
+<td>
+<p>The password for the user.</p>
+<code><span class="keyword">val </span><span class="identifier">password</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="port.html">port</a></h4>
+</td>
+<td>
+<p>The port of the server.</p>
+<code><span class="keyword">val </span><span class="identifier">port</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="url.html">url</a></h4>
+</td>
+<td>
+<p>The JDBC url resulting from the toUrl function applied to this instance.</p>
+<code><span class="keyword">val </span><span class="identifier">url</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="user.html">user</a></h4>
+</td>
+<td>
+<p>The user name to connect with.</p>
+<code><span class="keyword">val </span><span class="identifier">user</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="get-connection.html">getConnection</a></h4>
+</td>
+<td>
+<p>Return a connection for this <a href="./index.html">DBConfig</a>.</p>
+<code><span class="keyword">fun </span><span class="identifier">getConnection</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

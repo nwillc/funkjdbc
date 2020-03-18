@@ -27,7 +27,7 @@ import java.sql.ResultSet
 /**
  * A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
  */
-typealias Extractor<T> = (ResultSet) -> T?
+typealias Extractor<T> = (ResultSet) -> T
 
 /**
  * Execute a SQL statement on a JDBC Connection. The SQL is a statement
@@ -86,7 +86,7 @@ fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow 
     createStatement().use { statement ->
         statement.executeQuery(sql).use { rs ->
             while (rs.next()) {
-                emit(extractor(rs) ?: continue)
+                emit(extractor(rs))
             }
         }
     }
@@ -105,7 +105,7 @@ fun <T> Connection.asFlow(sqlStatement: SqlStatement, extractor: Extractor<T>): 
         sqlStatement.bind(statement)
         statement.executeQuery().use { rs ->
             while (rs.next()) {
-                emit(extractor(rs) ?: continue)
+                emit(extractor(rs))
             }
         }
     }

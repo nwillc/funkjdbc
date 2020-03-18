@@ -6,6 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
+val dokkaDir = "$projectDir/docs/dokka"
 
 val assertjVarsion: String by project
 val awaitilityVersion: String by project
@@ -28,7 +29,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.10.0"
+version = "0.10.1"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -67,16 +68,7 @@ val sourcesJar by tasks.registering(Jar::class) {
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
     classifier = "javadoc"
-    from("$buildDir/javadoc")
-}
-
-val testJar by tasks.registering(Jar::class) {
-    dependsOn("compileTestKotlin")
-    classifier = "test"
-    from(fileTree("$buildDir/classes/kotlin/test").matching {
-        include("com/github/nwillc/funkjdbc/testing/**")
-        exclude("**/*Test*")
-    })
+    from(dokkaDir)
 }
 
 publishing {
@@ -89,7 +81,6 @@ publishing {
             from(components["java"])
             artifact(sourcesJar.get())
             artifact(javadocJar.get())
-            artifact(testJar.get())
         }
     }
 }
@@ -130,13 +121,7 @@ tasks {
     }
     withType<DokkaTask> {
         outputFormat = "html"
-        outputDirectory = "docs/dokka"
-        configuration {
-            externalDocumentationLink {
-                url = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/")
-                packageListUrl = URL("file://${project.rootDir}/docs/kotlinx-coroutines-list")
-            }
-        }
+        outputDirectory = dokkaDir
     }
     withType<JacocoReport> {
         dependsOn("test")

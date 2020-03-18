@@ -102,17 +102,17 @@ class ConnectionExtensionsKtTest {
     }
 
     @Test
-    fun `should be able to find as flow where some extractions are null`() {
-        val extractor: Extractor<String?> = { rs ->
+    fun `should be able to flow where some extractions are null`() {
+        val noBe: Extractor<String?> = { rs ->
             val word = rs.getString(1)
             if (word == "b") null else word
         }
         runBlocking {
-            val flowContained = mutableListOf<String>()
-            connection.asFlow("SELECT * FROM WORDS", extractor)
+            val flowContained = mutableListOf<String?>()
+            connection.asFlow("SELECT * FROM WORDS", noBe)
                 .toList(flowContained)
 
-            assertThat(flowContained).containsExactly("a", "c")
+            assertThat(flowContained).containsExactly("a", null, "c")
         }
     }
 
