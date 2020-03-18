@@ -38,7 +38,7 @@ Now you want to add a row noting 10 occurrences of the word `foo`:
 Having created the table and added some rows, maybe you want to see the words:
 
 ```kotlin
-val words = connection.find("SELECT WORD FROM WORD") { rs -> rs.getString(1) }
+val words = connection.find("SELECT WORD FROM WORDS") { rs -> rs.getString(1) }
 ```
 
 Or you want to display them as Pairs:
