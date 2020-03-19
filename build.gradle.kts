@@ -38,11 +38,16 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    listOf(
+        kotlin("stdlib-jdk8"),
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    ).forEach { implementation(it) }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:$jupiterVersion")
-    testImplementation("org.assertj:assertj-core:$assertjVarsion")
+    listOf(
+        "org.junit.jupiter:junit-jupiter:$jupiterVersion",
+        "org.assertj:assertj-core:$assertjVarsion",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+    ).forEach { testImplementation(it) }
 
     testRuntimeOnly("com.h2database:h2:$h2Version")
 }

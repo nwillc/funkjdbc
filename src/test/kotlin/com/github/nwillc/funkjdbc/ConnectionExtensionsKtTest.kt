@@ -18,9 +18,10 @@
 package com.github.nwillc.funkjdbc
 
 import com.github.nwillc.funkjdbc.testing.EmbeddedDb
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
@@ -30,6 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
 import java.sql.SQLException
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Sql("src/test/resources/db/migrations")
 @ExtendWith(EmbeddedDb::class)
 class ConnectionExtensionsKtTest {
@@ -91,38 +93,36 @@ class ConnectionExtensionsKtTest {
     }
 
     @Test
-    fun `should be able to find as flow`() {
-        runBlocking {
+    fun `should be able to find as flow`() =
+        runBlockingTest {
             val flowContained = mutableListOf<String>()
             connection.asFlow("SELECT * FROM WORDS") { rs -> rs.getString(1) }
                 .toList(flowContained)
 
             assertThat(flowContained).containsExactly("a", "b", "c")
         }
-    }
 
     @Test
-    fun `should be able to flow where some extractions are null`() {
-        val noBe: Extractor<String?> = { rs ->
-            val word = rs.getString(1)
-            if (word == "b") null else word
-        }
-        runBlocking {
+    fun `should be able to flow where some extractions are null`() =
+        runBlockingTest {
+            val noBe: Extractor<String?> = { rs ->
+                val word = rs.getString(1)
+                if (word == "b") null else word
+            }
             val flowContained = mutableListOf<String?>()
             connection.asFlow("SELECT * FROM WORDS", noBe)
                 .toList(flowContained)
 
             assertThat(flowContained).containsExactly("a", null, "c")
         }
-    }
 
     @Test
-    fun `should be able to find with params as flow`() {
-        val word = "a"
-        val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
-            it.setString(1, word)
-        }
-        runBlocking {
+    fun `should be able to find with params as flow`() =
+        runBlockingTest {
+            val word = "a"
+            val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
+                it.setString(1, word)
+            }
             val flowContained = mutableListOf<String>()
             connection.asFlow(sqlStatement) { rs -> rs.getString(1) }
                 .collect {
@@ -130,7 +130,6 @@ class ConnectionExtensionsKtTest {
                 }
             assertThat(flowContained).containsExactly("b", "c")
         }
-    }
 
     @Test
     fun `should be able to find a record with query arguments`() {
