@@ -21,7 +21,7 @@ import com.github.nwillc.funkjdbc.testing.EmbeddedDb
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
@@ -93,18 +93,19 @@ class ConnectionExtensionsKtTest {
     }
 
     @Test
-    fun `should be able to find as flow`() =
-        runBlockingTest {
+    fun `should be able to find as flow`() {
+        runBlocking {
             val flowContained = mutableListOf<String>()
             connection.asFlow("SELECT * FROM WORDS") { rs -> rs.getString(1) }
                 .toList(flowContained)
 
             assertThat(flowContained).containsExactly("a", "b", "c")
         }
+    }
 
     @Test
-    fun `should be able to flow where some extractions are null`() =
-        runBlockingTest {
+    fun `should be able to flow where some extractions are null`() {
+        runBlocking {
             val noBe: Extractor<String?> = { rs ->
                 val word = rs.getString(1)
                 if (word == "b") null else word
@@ -115,21 +116,25 @@ class ConnectionExtensionsKtTest {
 
             assertThat(flowContained).containsExactly("a", null, "c")
         }
+    }
 
     @Test
-    fun `should be able to find with params as flow`() =
-        runBlockingTest {
+    fun `should be able to find with params as flow`() {
+        runBlocking {
             val word = "a"
             val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE WORD != ?") {
                 it.setString(1, word)
             }
             val flowContained = mutableListOf<String>()
+
             connection.asFlow(sqlStatement) { rs -> rs.getString(1) }
                 .collect {
                     flowContained.add(it)
                 }
+
             assertThat(flowContained).containsExactly("b", "c")
         }
+    }
 
     @Test
     fun `should be able to find a record with query arguments`() {

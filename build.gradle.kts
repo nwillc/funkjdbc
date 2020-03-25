@@ -1,6 +1,5 @@
 import com.jfrog.bintray.gradle.BintrayExtension
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
-import java.net.URL
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -18,18 +17,18 @@ val jupiterVersion: String by project
 val ktlintVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.70"
+    kotlin("jvm") version "1.3.71"
     jacoco
     `maven-publish`
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
-    id("com.github.nwillc.vplugin") version "3.0.1"
-    id("io.gitlab.arturbosch.detekt") version "1.6.0"
+    id("com.github.nwillc.vplugin") version "3.0.3"
+    id("io.gitlab.arturbosch.detekt") version "1.7.0"
     id("com.jfrog.bintray") version "1.8.4"
 }
 
 group = "com.github.nwillc"
-version = "0.10.2-SNAPSHOT"
+version = "0.10.2"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -45,8 +44,7 @@ dependencies {
 
     listOf(
         "org.junit.jupiter:junit-jupiter:$jupiterVersion",
-        "org.assertj:assertj-core:$assertjVarsion",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+        "org.assertj:assertj-core:$assertjVarsion"
     ).forEach { testImplementation(it) }
 
     testRuntimeOnly("com.h2database:h2:$h2Version")
@@ -66,13 +64,13 @@ jacoco {
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
-    classifier = "sources"
+    archiveClassifier.convention("sources")
     from(sourceSets["main"].allSource)
 }
 
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
-    classifier = "javadoc"
+    archiveClassifier.convention("javadoc")
     from(dokkaDir)
 }
 
