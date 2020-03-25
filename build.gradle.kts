@@ -10,7 +10,6 @@ val dokkaDir = "$projectDir/docs/dokka"
 val assertjVarsion: String by project
 val awaitilityVersion: String by project
 val coroutinesVersion: String by project
-val detektToolVersion: String by project
 val h2Version: String by project
 val jacocoToolVersion: String by project
 val jupiterVersion: String by project
@@ -23,7 +22,7 @@ plugins {
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.github.nwillc.vplugin") version "3.0.3"
-    id("io.gitlab.arturbosch.detekt") version "1.7.0"
+    id("io.gitlab.arturbosch.detekt") version "1.6.0"
     id("com.jfrog.bintray") version "1.8.4"
 }
 
@@ -56,7 +55,9 @@ ktlint {
 }
 
 detekt {
-    toolVersion = detektToolVersion
+    reports {
+        html.enabled = true
+    }
 }
 
 jacoco {
