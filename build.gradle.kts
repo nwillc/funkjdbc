@@ -10,10 +10,10 @@ val dokkaDir = "$projectDir/docs/dokka"
 val assertjVarsion: String by project
 val awaitilityVersion: String by project
 val coroutinesVersion: String by project
-val h2Version: String by project
 val jacocoToolVersion: String by project
 val jupiterVersion: String by project
 val ktlintVersion: String by project
+val sqliteVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.3.71"
@@ -46,7 +46,7 @@ dependencies {
         "org.assertj:assertj-core:$assertjVarsion"
     ).forEach { testImplementation(it) }
 
-    testRuntimeOnly("com.h2database:h2:$h2Version")
+    testRuntimeOnly("org.xerial:sqlite-jdbc:$sqliteVersion")
 }
 
 ktlint {

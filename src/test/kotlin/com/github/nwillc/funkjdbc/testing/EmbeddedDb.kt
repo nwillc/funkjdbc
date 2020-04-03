@@ -31,17 +31,15 @@ import java.util.logging.Logger
 
 class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
     private var dbConfig = DBConfig(
-        driver = "org.h2.Driver"
-    ) { config -> "jdbc:h2:mem:${config.database}" }
+        driver = "org.sqlite.JDBC"
+    ) { config -> "jdbc:sqlite:${config.database}" }
     private lateinit var connection: Connection
 
-    override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean {
-        return DBConfig::class.java.isAssignableFrom(parameterContext!!.parameter.type)
-    }
+    override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean =
+        DBConfig::class.java.isAssignableFrom(parameterContext!!.parameter.type)
 
-    override fun resolveParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Any {
-        return dbConfig
-    }
+    override fun resolveParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Any =
+        dbConfig
 
     override fun beforeEach(context: ExtensionContext) {
         connection = dbConfig.getConnection()
