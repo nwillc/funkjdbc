@@ -27,13 +27,12 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.extension.RegisterExtension
 import java.sql.Connection
 import java.sql.SQLException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Sql("src/test/resources/db/migrations")
-@ExtendWith(EmbeddedDb::class)
 class ConnectionExtensionsKtTest {
     private lateinit var connection: Connection
 
@@ -200,5 +199,13 @@ class ConnectionExtensionsKtTest {
             "SELECT * FROM WORDS WHERE WORD = 'd'"
         ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(0)
+    }
+
+    companion object {
+        @JvmField
+        @RegisterExtension
+        val embeddedDb = EmbeddedDb(
+            DBConfig(driver = "org.sqlite.JDBC") { config -> "jdbc:sqlite:${config.database}" }
+        )
     }
 }

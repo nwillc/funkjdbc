@@ -22,10 +22,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.extension.RegisterExtension
 import java.sql.Connection
 
-@ExtendWith(EmbeddedDb::class)
 @Sql("src/test/resources/db/migrations")
 class SqlStatementTest {
     private lateinit var connection: Connection
@@ -62,5 +61,13 @@ class SqlStatementTest {
 
         sql.value = 20
         assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
+    }
+
+    companion object {
+        @JvmField
+        @RegisterExtension
+        val embeddedDb = EmbeddedDb(
+            DBConfig(driver = "org.sqlite.JDBC") { config -> "jdbc:sqlite:${config.database}" }
+        )
     }
 }

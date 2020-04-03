@@ -29,10 +29,12 @@ import org.junit.jupiter.api.extension.ParameterResolver
 import java.sql.Connection
 import java.util.logging.Logger
 
-class EmbeddedDb : ParameterResolver, BeforeEachCallback, AfterEachCallback {
-    private var dbConfig = DBConfig(
-        driver = "org.sqlite.JDBC"
-    ) { config -> "jdbc:sqlite:${config.database}" }
+class EmbeddedDb(
+    private var dbConfig: DBConfig = DBConfig(
+        driver = "org.h2.Driver"
+    ) { config -> "jdbc:h2:mem:${config.database}" }
+) : ParameterResolver, BeforeEachCallback, AfterEachCallback {
+
     private lateinit var connection: Connection
 
     override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean =
