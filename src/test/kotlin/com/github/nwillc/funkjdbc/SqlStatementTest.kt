@@ -25,9 +25,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
 
-
 @ExtendWith(EmbeddedDb::class)
-@Sql("src/test/resources/db/migrations", executionPhase = Sql.ExecutionPhase.SETUP)
+@Sql("src/test/resources/db/migrations")
 class SqlStatementTest {
     private lateinit var connection: Connection
 
