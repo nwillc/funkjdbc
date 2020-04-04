@@ -52,3 +52,6 @@ data class DBConfig(
         return DriverManager.getConnection(url, user, password)!!
     }
 }
+
+fun toH2Url(dbConfig: DBConfig): String = "jdbc:h2:mem:${dbConfig.database}"
+fun toSqliteUrl(dbConfig: DBConfig): String = "jdbc:sqlite:${dbConfig.database}"

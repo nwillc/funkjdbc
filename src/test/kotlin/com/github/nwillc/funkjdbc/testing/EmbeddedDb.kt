@@ -20,6 +20,7 @@ package com.github.nwillc.funkjdbc.testing
 import com.github.nwillc.funkjdbc.DBConfig
 import com.github.nwillc.funkjdbc.Sql
 import com.github.nwillc.funkjdbc.sqlFor
+import com.github.nwillc.funkjdbc.toH2Url
 import com.github.nwillc.funkjdbc.update
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
@@ -31,8 +32,9 @@ import java.util.logging.Logger
 
 class EmbeddedDb(
     private var dbConfig: DBConfig = DBConfig(
-        driver = "org.h2.Driver"
-    ) { config -> "jdbc:h2:mem:${config.database}" }
+        driver = "org.h2.Driver",
+        toUrl = ::toH2Url
+    )
 ) : ParameterResolver, BeforeEachCallback, AfterEachCallback {
 
     private lateinit var connection: Connection
