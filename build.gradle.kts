@@ -22,8 +22,8 @@ plugins {
     id("org.jetbrains.dokka") version "0.10.1"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
     id("com.github.nwillc.vplugin") version "3.0.3"
-    id("io.gitlab.arturbosch.detekt") version "1.7.3"
-    id("com.jfrog.bintray") version "1.8.4"
+    id("io.gitlab.arturbosch.detekt") version "1.7.4"
+    id("com.jfrog.bintray") version "1.8.5"
 }
 
 group = "com.github.nwillc"
