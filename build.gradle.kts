@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     jacoco
     `maven-publish`
-    Libs.plugins.forEach { (name, number) -> id(name) version number }
+    Libs.plugins.forEach { (n, v) -> id(n) version v }
 }
 
 group = "com.github.nwillc"
@@ -19,9 +19,9 @@ repositories {
 }
 
 dependencies {
-    Libs.implementations.forEach(::implementation)
-    Libs.testImplementations.forEach(::testImplementation)
-    Libs.testRuntimeOnly.forEach(::testRuntimeOnly)
+    Libs.implementations.forEach { (n, v) -> implementation("$n:$v") }
+    Libs.testImplementations.forEach { (n, v) -> testImplementation("$n:$v") }
+    Libs.testRuntimeOnly.forEach { (n, v) -> testRuntimeOnly("$n:$v") }
 }
 
 ktlint {

@@ -43,7 +43,7 @@ object Versions {
 }
 
 object Libs {
-    val plugins = listOf(
+    val plugins = mapOf(
         "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
         "org.jetbrains.dokka" to PluginVersions.dokka,
         "org.jlleitschuh.gradle.ktlint" to PluginVersions.ktlint,
@@ -51,15 +51,15 @@ object Libs {
         "io.gitlab.arturbosch.detekt" to PluginVersions.detekt,
         "com.jfrog.bintray" to PluginVersions.bintray
     )
-    val implementations = listOf(
-        "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${PluginVersions.kotlin}",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    val implementations = mapOf(
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines
     )
-    val testImplementations = listOf(
-        "org.junit.jupiter:junit-jupiter:${Versions.jupiter}",
-        "org.assertj:assertj-core:${Versions.assertJ}"
+    val testImplementations = mapOf(
+        "org.junit.jupiter:junit-jupiter" to Versions.jupiter,
+        "org.assertj:assertj-core" to Versions.assertJ
     )
-    val testRuntimeOnly = listOf(
-        "com.h2database:h2:${Versions.h2}"
+    val testRuntimeOnly = mapOf(
+        "com.h2database:h2" to Versions.h2
     )
 }
