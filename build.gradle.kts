@@ -19,19 +19,19 @@ repositories {
 }
 
 dependencies {
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core"
-    ).forEach { (n, v) -> implementation("$n:$v") }
+    ) { implementation(it) }
 
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "org.junit.jupiter:junit-jupiter",
         "org.assertj:assertj-core"
-    ).forEach { (n, v) -> testImplementation("$n:$v") }
+    ) { testImplementation(it) }
 
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "com.h2database:h2"
-    ).forEach { (n, v) -> testRuntimeOnly("$n:$v") }
+    ) { testRuntimeOnly(it) }
 }
 
 ktlint {

@@ -58,7 +58,18 @@ object Dependencies {
         "org.assertj:assertj-core" to Versions.assertJ,
         "com.h2database:h2" to Versions.h2
     )
-}
 
-fun Map<String,String>.select(vararg keys: String): List<Pair<String,String?>> =
-    keys.map { it to this[it] }.toList()
+    fun plugins(vararg keys: String, block: (Pair<String, String>) -> Unit) =
+        keys
+            .map { it to (plugins[it] ?: error("No plugin $it registered in Dependencies.")) }
+            .forEach {
+                block(it)
+            }
+
+    fun artifacts(vararg keys: String, block: (String) -> Unit) =
+        keys
+            .map { it to (artifacts[it] ?: error("No artifact $it registered in Dependencies.")) }
+            .forEach { (n, v) ->
+                block("$n:$v")
+            }
+}
