@@ -4,14 +4,9 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version PluginVersions.kotlin
     jacoco
     `maven-publish`
-    id("org.jetbrains.dokka") version PluginVersions.dokka
-    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.ktlint
-    id("com.github.nwillc.vplugin") version PluginVersions.vplugin
-    id("io.gitlab.arturbosch.detekt") version PluginVersions.detekt
-    id("com.jfrog.bintray") version PluginVersions.bintray
+    Libs.plugins.forEach { (n, v) -> id(n) version v }
 }
 
 group = "com.github.nwillc"

@@ -43,6 +43,14 @@ object Versions {
 }
 
 object Libs {
+    val plugins = mapOf(
+        "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
+        "org.jetbrains.dokka" to PluginVersions.dokka,
+        "org.jlleitschuh.gradle.ktlint" to PluginVersions.ktlint,
+        "com.github.nwillc.vplugin" to PluginVersions.vplugin,
+        "io.gitlab.arturbosch.detekt" to PluginVersions.detekt,
+        "com.jfrog.bintray" to PluginVersions.bintray
+    )
     val implementations = listOf(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${PluginVersions.kotlin}",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
