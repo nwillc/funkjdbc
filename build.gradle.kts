@@ -3,27 +3,15 @@ import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
-val publicationName = "maven"
-val dokkaDir = "$projectDir/docs/dokka"
-
-val assertjVarsion: String by project
-val awaitilityVersion: String by project
-val coroutinesVersion: String by project
-val h2Version: String by project
-val jacocoToolVersion: String by project
-val jupiterVersion: String by project
-val ktlintVersion: String by project
-
 plugins {
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version PluginVersions.kotlin
     jacoco
     `maven-publish`
-    id("org.jetbrains.dokka") version "0.10.1"
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
-    id("com.github.nwillc.vplugin") version "3.0.3"
-    id("io.gitlab.arturbosch.detekt") version "1.7.4"
-    id("com.jfrog.bintray") version "1.8.5"
+    id("org.jetbrains.dokka") version PluginVersions.dokka
+    id("org.jlleitschuh.gradle.ktlint") version PluginVersions.ktlint
+    id("com.github.nwillc.vplugin") version PluginVersions.vplugin
+    id("io.gitlab.arturbosch.detekt") version PluginVersions.detekt
+    id("com.jfrog.bintray") version PluginVersions.bintray
 }
 
 group = "com.github.nwillc"
@@ -36,21 +24,13 @@ repositories {
 }
 
 dependencies {
-    listOf(
-        kotlin("stdlib-jdk8"),
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    ).forEach { implementation(it) }
-
-    listOf(
-        "org.junit.jupiter:junit-jupiter:$jupiterVersion",
-        "org.assertj:assertj-core:$assertjVarsion"
-    ).forEach { testImplementation(it) }
-
-    testRuntimeOnly("com.h2database:h2:$h2Version")
+    Libs.implementations.forEach(::implementation)
+    Libs.testImplementations.forEach(::testImplementation)
+    Libs.testRuntimeOnly.forEach(::testRuntimeOnly)
 }
 
 ktlint {
-    version.set(ktlintVersion)
+    version.set(ToolVersions.ktlint)
     ignoreFailures.set(true)
 }
 
@@ -61,7 +41,7 @@ detekt {
 }
 
 jacoco {
-    toolVersion = jacocoToolVersion
+    toolVersion = ToolVersions.jacoco
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
@@ -72,15 +52,15 @@ val sourcesJar by tasks.registering(Jar::class) {
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
     archiveClassifier.convention("javadoc")
-    from(dokkaDir)
+    from("$projectDir/${Constants.dokkaDir}")
 }
 
 publishing {
     publications {
-        create<MavenPublication>(publicationName) {
-            groupId = project.group.toString()
+        create<MavenPublication>(Constants.publicationName) {
+            groupId = "${project.group}"
             artifactId = project.name
-            version = project.version.toString()
+            version = "${project.version}"
 
             from(components["java"])
             artifact(sourcesJar.get())
@@ -94,9 +74,9 @@ bintray {
     key = System.getenv("BINTRAY_API_KEY")
     dryRun = false
     publish = true
-    setPublications(publicationName)
+    setPublications(Constants.publicationName)
     pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = publicationName
+        repo = Constants.publicationName
         name = project.name
         desc = "Functional Kotlin JDBC Extensions."
         websiteUrl = "https://github.com/nwillc/${project.name}"
@@ -114,7 +94,7 @@ tasks {
         manifest.attributes["Automatic-Module-Name"] = "${project.group}.${project.name}"
     }
     withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = jvmTargetVersion
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     withType<Test> {
         useJUnitPlatform()
@@ -125,7 +105,7 @@ tasks {
     }
     withType<DokkaTask> {
         outputFormat = "html"
-        outputDirectory = dokkaDir
+        outputDirectory = "$projectDir/${Constants.dokkaDir}"
     }
     withType<JacocoReport> {
         dependsOn("test")
@@ -141,7 +121,7 @@ tasks {
     withType<BintrayUploadTask> {
         onlyIf {
             if (project.version.toString().contains('-')) {
-                logger.lifecycle("Version v${project.version} is not a release version - skipping upload.")
+                logger.lifecycle("Version ${project.version} is not a release version - skipping upload.")
                 false
             } else {
                 true
