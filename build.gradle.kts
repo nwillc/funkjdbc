@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     jacoco
     `maven-publish`
-    Libs.plugins.forEach { (n, v) -> id(n) version v }
+    Libs.plugins.forEach { (name, number) -> id(name) version number }
 }
 
 group = "com.github.nwillc"

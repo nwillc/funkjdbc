@@ -43,7 +43,7 @@ object Versions {
 }
 
 object Libs {
-    val plugins = mapOf(
+    val plugins = listOf(
         "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
         "org.jetbrains.dokka" to PluginVersions.dokka,
         "org.jlleitschuh.gradle.ktlint" to PluginVersions.ktlint,
