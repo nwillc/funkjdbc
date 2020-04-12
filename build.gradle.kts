@@ -6,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     jacoco
     `maven-publish`
-    Libs.plugins.forEach { (n, v) -> id(n) version v }
+    Dependencies.plugins.forEach { (n, v) -> id(n) version v }
 }
 
 group = "com.github.nwillc"
@@ -19,9 +19,19 @@ repositories {
 }
 
 dependencies {
-    Libs.implementations.forEach { (n, v) -> implementation("$n:$v") }
-    Libs.testImplementations.forEach { (n, v) -> testImplementation("$n:$v") }
-    Libs.testRuntimeOnly.forEach { (n, v) -> testRuntimeOnly("$n:$v") }
+    Dependencies.artifacts.select(
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    ).forEach { (n, v) -> implementation("$n:$v") }
+
+    Dependencies.artifacts.select(
+        "org.junit.jupiter:junit-jupiter",
+        "org.assertj:assertj-core"
+    ).forEach { (n, v) -> testImplementation("$n:$v") }
+
+    Dependencies.artifacts.select(
+        "com.h2database:h2"
+    ).forEach { (n, v) -> testRuntimeOnly("$n:$v") }
 }
 
 ktlint {

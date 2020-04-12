@@ -42,7 +42,7 @@ object Versions {
     const val jupiter = "5.6.1"
 }
 
-object Libs {
+object Dependencies {
     val plugins = mapOf(
         "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
         "org.jetbrains.dokka" to PluginVersions.dokka,
@@ -51,15 +51,14 @@ object Libs {
         "io.gitlab.arturbosch.detekt" to PluginVersions.detekt,
         "com.jfrog.bintray" to PluginVersions.bintray
     )
-    val implementations = mapOf(
+    val artifacts = mapOf(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines
-    )
-    val testImplementations = mapOf(
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines,
         "org.junit.jupiter:junit-jupiter" to Versions.jupiter,
-        "org.assertj:assertj-core" to Versions.assertJ
-    )
-    val testRuntimeOnly = mapOf(
+        "org.assertj:assertj-core" to Versions.assertJ,
         "com.h2database:h2" to Versions.h2
     )
 }
+
+fun Map<String,String>.select(vararg keys: String): List<Pair<String,String?>> =
+    keys.map { it to this[it] }.toList()
