@@ -1,6 +1,6 @@
 [![Coverage](https://codecov.io/gh/nwillc/funkjdbc/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/nwillc/funkjdbc)
 [![license](https://img.shields.io/github/license/nwillc/funkjdbc.svg)](https://tldrlegal.com/license/-isc-license)
-[![Travis](https://img.shields.io/travis/nwillc/funkjdbc.svg)](https://travis-ci.org/nwillc/funkjdbc)
+[![Build Status](https://github.com/nwillc/funkjdbc/workflows/CICD/badge.svg)](https://github.com/nwillc/funkjdbc/actions?query=workflow%3ACICD)
 [![Download](https://api.bintray.com/packages/nwillc/maven/funkjdbc/images/download.svg)](https://bintray.com/nwillc/maven/funkjdbc/_latestVersion)
 ------
 

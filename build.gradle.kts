@@ -36,7 +36,7 @@ dependencies {
 
 ktlint {
     version.set(ToolVersions.ktlint)
-    ignoreFailures.set(true)
+    disabledRules.set(setOf("import-ordering"))
 }
 
 detekt {
