@@ -1,0 +1,31 @@
+
+name: CICD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+
+    - name: Assemble
+      run: ./gradlew assemble
+
+    - name: Check
+      run: ./gradlew check
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+
+    - name: Publish Releases
+      env:
+        BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+        BINTRAY_API_KEY: ${{ secrets.BINTRAY_API_KEY }}
+      run: ./gradlew bintrayUpload
