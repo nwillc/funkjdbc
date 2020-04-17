@@ -25,7 +25,7 @@ object PluginVersions {
     const val bintray = "1.8.5"
     const val detekt = "1.7.4"
     const val dokka = "0.10.1"
-    const val kotlin = "1.3.72"
+    const val kotlin = "1.4-M1"
     const val ktlint = "9.2.1"
     const val vplugin = "3.0.3"
 }
@@ -37,7 +37,7 @@ object ToolVersions {
 
 object Versions {
     const val assertJ = "3.15.0"
-    const val coroutines = "1.3.5"
+    const val coroutines = "1.3.5-1.4-M1"
     const val h2 = "1.4.200"
     const val jupiter = "5.6.1"
 }
