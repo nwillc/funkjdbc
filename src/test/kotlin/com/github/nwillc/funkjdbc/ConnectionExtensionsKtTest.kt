@@ -106,7 +106,7 @@ class ConnectionExtensionsKtTest {
     @Test
     fun `should be able to flow where some extractions are null`() {
         runBlocking {
-            val noBe: Extractor<String?> = { rs ->
+            val noBe = Extractor { rs ->
                 val word = rs.getString(1)
                 if (word == "b") null else word
             }

@@ -29,11 +29,10 @@
 </tr>
 <tr>
 <td>
-<h4><a href="-extractor.html">Extractor</a></h4>
+<h4><a href="-extractor/index.html">Extractor</a></h4>
 </td>
 <td>
-<p>A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.</p>
-<code><span class="keyword">typealias </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/ResultSet.html"><span class="identifier">ResultSet</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span></code></td>
+<code><span class="keyword">interface </span><span class="identifier">Extractor</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
 </tr>
 <tr>
 <td>
@@ -97,6 +96,15 @@ to those '?'s on a given PreparedStatement.</p>
 <h3>Functions</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<h4><a href="-no name provided-.html">&lt;no name provided&gt;</a></h4>
+</td>
+<td>
+<p>A Single Abstract Method interface to extract type T from a ResultSet.
+No magic here, use JDBC's getXXX methods here.</p>
+<code><span class="keyword">fun </span><span class="identifier">&lt;no name provided&gt;</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
 <tr>
 <td>
 <h4><a href="to-h2-url.html">toH2Url</a></h4>
