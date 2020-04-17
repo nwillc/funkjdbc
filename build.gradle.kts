@@ -16,6 +16,8 @@ logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
 repositories {
     jcenter()
+    maven ("https://dl.bintray.com/kotlin/kotlin-eap")
+    maven ("https://kotlin.bintray.com/kotlinx")
 }
 
 dependencies {
