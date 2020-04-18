@@ -24,11 +24,18 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
+import java.sql.PreparedStatement
 
 @Sql("src/test/resources/db/migrations")
 @ExtendWith(EmbeddedDb::class)
 class SqlStatementTest {
     private lateinit var connection: Connection
+    private val countLTE = object : Binder {
+        var value: Int = 0
+        override operator fun invoke(preparedStatement: PreparedStatement) {
+            preparedStatement.setInt(1, value)
+        }
+    }
 
     @BeforeEach
     fun setUp(dbConfig: DBConfig) {
@@ -52,15 +59,11 @@ class SqlStatementTest {
 
     @Test
     fun `should rebind arguments`() {
-        class SelectCountLTE(var value: Int = 0) :
-            SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
-            override val bind: Binder = { it.setInt(1, value) }
-        }
-
-        val sql = SelectCountLTE(2)
+        val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", countLTE)
+        countLTE.value = 2
         assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(2)
 
-        sql.value = 20
+        countLTE.value = 20
         assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
     }
 }

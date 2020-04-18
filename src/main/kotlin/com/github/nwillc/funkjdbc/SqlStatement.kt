@@ -19,7 +19,9 @@ package com.github.nwillc.funkjdbc
 import java.sql.PreparedStatement
 
 /** A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL. */
-typealias Binder = (PreparedStatement) -> Unit
+fun interface Binder {
+    operator fun invoke(preparedStatement: PreparedStatement)
+}
 
 /**
  * A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
@@ -53,4 +55,4 @@ typealias Binder = (PreparedStatement) -> Unit
  * @property sql The JDBC formatted SQL statements
  * @property bind The binding code block to bind values to SQL's '?'s
  */
-open class SqlStatement(val sql: String, open val bind: Binder = {})
+class SqlStatement(val sql: String, val binder: Binder)
