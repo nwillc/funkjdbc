@@ -80,7 +80,7 @@ fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow 
     createStatement().use { statement ->
         statement.executeQuery(sql).use { rs ->
             while (rs.next()) {
-                emit(extractor.extract(rs))
+                emit(extractor(rs))
             }
         }
     }
@@ -99,7 +99,7 @@ fun <T> Connection.asFlow(sqlStatement: SqlStatement, extractor: Extractor<T>): 
         sqlStatement.bind(statement)
         statement.executeQuery().use { rs ->
             while (rs.next()) {
-                emit(extractor.extract(rs))
+                emit(extractor(rs))
             }
         }
     }

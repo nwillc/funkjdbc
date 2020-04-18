@@ -17,13 +17,9 @@
 
 package com.github.nwillc.funkjdbc
 
-import java.sql.ResultSet
+import java.sql.PreparedStatement
 
-/**
- * A Single Abstract Method interface to extract type T from a ResultSet.
- * No magic here, use JDBC's getXXX methods here.
- * @param T The extracted type
- */
-fun interface Extractor<T> {
-    operator fun invoke(rs: ResultSet): T
+/** A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL. */
+fun interface Binder {
+    operator fun invoke(preparedStatement: PreparedStatement)
 }

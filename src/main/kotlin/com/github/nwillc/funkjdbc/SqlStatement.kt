@@ -16,13 +16,6 @@
 
 package com.github.nwillc.funkjdbc
 
-import java.sql.PreparedStatement
-
-/** A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL. */
-fun interface Binder {
-    operator fun invoke(preparedStatement: PreparedStatement)
-}
-
 /**
  * A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
  * excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
