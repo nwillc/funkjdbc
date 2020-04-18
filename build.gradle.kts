@@ -50,14 +50,24 @@ jacoco {
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.convention("sources")
-    from(sourceSets["main"].allSource)
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
 }
 
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
-    archiveClassifier.convention("javadoc")
+    archiveClassifier.set("javadoc")
     from("$projectDir/${Constants.dokkaDir}")
+}
+
+val testJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("tests")
+    from(sourceSets.test.get().output)
+}
+
+val testSourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("testSources")
+    from(sourceSets.test.get().allSource)
 }
 
 publishing {
@@ -67,9 +77,11 @@ publishing {
             artifactId = project.name
             version = "${project.version}"
 
-            from(components["java"])
             artifact(sourcesJar.get())
             artifact(javadocJar.get())
+            artifact(testJar.get())
+            artifact(testSourcesJar.get())
+            from(components["java"])
         }
     }
 }
