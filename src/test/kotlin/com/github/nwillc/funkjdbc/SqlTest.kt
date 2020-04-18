@@ -15,12 +15,8 @@
  *
  */
 
-package com.github.nwillc.funkjdbc.testing
+package com.github.nwillc.funkjdbc
 
-import com.github.nwillc.funkjdbc.Sql
-import com.github.nwillc.funkjdbc.Sqls
-import com.github.nwillc.funkjdbc.sqlFor
-import com.github.nwillc.funkjdbc.sqlScripts
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
