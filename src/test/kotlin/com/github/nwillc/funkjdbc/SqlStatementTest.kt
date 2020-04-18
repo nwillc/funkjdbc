@@ -30,12 +30,6 @@ import java.sql.PreparedStatement
 @ExtendWith(EmbeddedDb::class)
 class SqlStatementTest {
     private lateinit var connection: Connection
-    private val countLTE = object : Binder {
-        var value: Int = 0
-        override operator fun invoke(preparedStatement: PreparedStatement) {
-            preparedStatement.setInt(1, value)
-        }
-    }
 
     @BeforeEach
     fun setUp(dbConfig: DBConfig) {
@@ -58,12 +52,16 @@ class SqlStatementTest {
     }
 
     @Test
-    fun `should rebind arguments`() {
-        val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", countLTE)
-        countLTE.value = 2
-        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(2)
+    fun `should be able to reassign bindings`() {
+        val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", CountLTE(2))
+        assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(2)
+        sqlStatement.bind = CountLTE(20)
+        assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(3)
+    }
 
-        countLTE.value = 20
-        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
+    private class CountLTE(val value: Int) : Binder {
+        override operator fun invoke(preparedStatement: PreparedStatement) {
+            preparedStatement.setInt(1, value)
+        }
     }
 }

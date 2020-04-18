@@ -55,4 +55,4 @@ fun interface Binder {
  * @property sql The JDBC formatted SQL statements
  * @property bind The binding code block to bind values to SQL's '?'s
  */
-class SqlStatement(val sql: String, val bind: Binder)
+data class SqlStatement(val sql: String, var bind: Binder)
