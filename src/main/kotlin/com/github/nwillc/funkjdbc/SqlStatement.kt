@@ -54,6 +54,10 @@ typealias Binder = (PreparedStatement) -> Unit
  * @property bind The binding code block to bind values to SQL's '?'s
  */
 data class SqlStatement(val sql: String, val binder: Binder) {
+    /**
+     * Make the default behavior of the [SqlStatement] to be to apply the [Binder] to the SQL.
+     * @param preparedStatement The [PreparedStatement] with the SQL and [Binder].
+     */
     operator fun invoke(preparedStatement: PreparedStatement) =
         preparedStatement.apply { binder(preparedStatement) }
 }

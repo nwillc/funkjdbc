@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import java.sql.Connection
+import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 /**
@@ -41,9 +42,8 @@ fun Connection.update(sql: String): Int = createStatement().use { it.executeUpda
  * that updates the database, and therefore returns a row count.
  * @param sqlStatement A SqlStatement allowing parameters.
  */
-fun Connection.update(sqlStatement: SqlStatement): Int = prepareStatement(sqlStatement.sql).use { statement ->
-    sqlStatement(statement).executeUpdate()
-}
+fun Connection.update(sqlStatement: SqlStatement): Int =
+    sqlStatement(sqlStatement).use { it.executeUpdate() }
 
 /**
  * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
@@ -100,14 +100,21 @@ fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow 
  * @since 0.9.1
  */
 fun <T> Connection.asFlow(sqlStatement: SqlStatement, extractor: Extractor<T>): Flow<T> = flow {
-    prepareStatement(sqlStatement.sql).use { statement ->
-        sqlStatement(statement).executeQuery().use { rs ->
+    sqlStatement(sqlStatement).use { statement ->
+        statement.executeQuery().use { rs ->
             while (rs.next()) {
                 emit(extractor(rs))
             }
         }
     }
 }
+
+/**
+ * Create a [PreparedStatement] from with the SQL and bindings provided by the [SqlStatement].
+ * @param sqlStatement The [SqlStatement] providing the SQL and [Binder].
+ */
+fun Connection.sqlStatement(sqlStatement: SqlStatement): PreparedStatement =
+    prepareStatement(sqlStatement.sql).apply { sqlStatement(this) }
 
 /**
  * Perform operations on connection within a transaction. This function will, if any exception

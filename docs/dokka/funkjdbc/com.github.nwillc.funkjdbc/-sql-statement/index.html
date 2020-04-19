@@ -8,7 +8,7 @@
 <a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="./index.html">SqlStatement</a><br/>
 <br/>
 <h1>SqlStatement</h1>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></code>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></code>
 <p>A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
 excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
 to those '?'s on a given PreparedStatement.</p>
@@ -42,7 +42,7 @@ connection.query(sql, {rs -&gt; rs.getInt("count") } ) { it.forEach { println("$
 <p>A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
 excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
 to those '?'s on a given PreparedStatement.</p>
-<code><span class="identifier">SqlStatement</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/bind">bind</span><span class="symbol">:</span>&nbsp;<a href="../-binder.html"><span class="identifier">Binder</span></a>&nbsp;<span class="symbol">=</span>&nbsp;{}<span class="symbol">)</span></code></td>
+<code><span class="identifier">SqlStatement</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/binder">binder</span><span class="symbol">:</span>&nbsp;<a href="../-binder.html"><span class="identifier">Binder</span></a><span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -51,11 +51,10 @@ to those '?'s on a given PreparedStatement.</p>
 <tbody>
 <tr>
 <td>
-<h4><a href="bind.html">bind</a></h4>
+<h4><a href="binder.html">binder</a></h4>
 </td>
 <td>
-<p>The binding code block to bind values to SQL's '?'s</p>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">bind</span><span class="symbol">: </span><a href="../-binder.html"><span class="identifier">Binder</span></a></code></td>
+<code><span class="keyword">val </span><span class="identifier">binder</span><span class="symbol">: </span><a href="../-binder.html"><span class="identifier">Binder</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -64,6 +63,19 @@ to those '?'s on a given PreparedStatement.</p>
 <td>
 <p>The JDBC formatted SQL statements</p>
 <code><span class="keyword">val </span><span class="identifier">sql</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="invoke.html">invoke</a></h4>
+</td>
+<td>
+<p>Make the default behavior of the <a href="./index.html">SqlStatement</a> to be to apply the <a href="../-binder.html">Binder</a> to the SQL.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$invoke(java.sql.PreparedStatement)/preparedStatement">preparedStatement</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html"><span class="identifier">PreparedStatement</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html"><span class="identifier">PreparedStatement</span></a></code></td>
 </tr>
 </tbody>
 </table>
