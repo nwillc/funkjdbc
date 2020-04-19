@@ -36,8 +36,7 @@ fun Connection.update(sql: String): Int = createStatement().use { it.executeUpda
  * @param sqlStatement A SqlStatement allowing parameters.
  */
 fun Connection.update(sqlStatement: SqlStatement): Int = prepareStatement(sqlStatement.sql).use { statement ->
-    sqlStatement.bind(statement)
-    statement.executeUpdate()
+    sqlStatement(statement).executeUpdate()
 }
 
 /**
@@ -96,12 +95,12 @@ fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow 
  */
 fun <T> Connection.asFlow(sqlStatement: SqlStatement, extractor: Extractor<T>): Flow<T> = flow {
     prepareStatement(sqlStatement.sql).use { statement ->
-        sqlStatement.bind(statement)
-        statement.executeQuery().use { rs ->
-            while (rs.next()) {
-                emit(extractor(rs))
+        sqlStatement(statement)
+            .executeQuery().use { rs ->
+                while (rs.next()) {
+                    emit(extractor(rs))
+                }
             }
-        }
     }
 }
 

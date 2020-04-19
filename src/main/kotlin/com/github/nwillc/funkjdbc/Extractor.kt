@@ -24,6 +24,5 @@ import java.sql.ResultSet
  * No magic here, use JDBC's getXXX methods here.
  * @param T The extracted type
  */
-fun interface Extractor<T> {
-    operator fun invoke(rs: ResultSet): T
-}
+typealias Extractor<T> = (rs: ResultSet) -> T
+

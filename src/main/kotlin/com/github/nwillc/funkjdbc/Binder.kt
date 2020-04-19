@@ -20,6 +20,4 @@ package com.github.nwillc.funkjdbc
 import java.sql.PreparedStatement
 
 /** A function that accepts a PreparedStatement and binds the values to the '?'s in the previously declared SQL. */
-fun interface Binder {
-    operator fun invoke(preparedStatement: PreparedStatement)
-}
+typealias Binder = (PreparedStatement) -> Unit

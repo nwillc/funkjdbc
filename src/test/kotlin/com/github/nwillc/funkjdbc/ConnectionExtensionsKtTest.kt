@@ -29,6 +29,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.sql.Connection
+import java.sql.ResultSet
 import java.sql.SQLException
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -106,7 +107,7 @@ class ConnectionExtensionsKtTest {
     @Test
     fun `should be able to flow where some extractions are null`() {
         runBlocking {
-            val noBe = Extractor { rs ->
+            val noBe: Extractor<String?> = { rs: ResultSet ->
                 val word = rs.getString(1)
                 if (word == "b") null else word
             }

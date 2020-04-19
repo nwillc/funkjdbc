@@ -16,6 +16,8 @@
 
 package com.github.nwillc.funkjdbc
 
+import java.sql.PreparedStatement
+
 /**
  * A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
  * excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
@@ -46,6 +48,9 @@ package com.github.nwillc.funkjdbc
  * ```
  *
  * @property sql The JDBC formatted SQL statements
- * @property bind The binding code block to bind values to SQL's '?'s
+ * @property binder The binding code block to bind values to SQL's '?'s
  */
-data class SqlStatement(val sql: String, var bind: Binder)
+data class SqlStatement(val sql: String, var binder: Binder) {
+    operator fun invoke(preparedStatement: PreparedStatement) =
+        preparedStatement.apply { binder(preparedStatement) }
+}

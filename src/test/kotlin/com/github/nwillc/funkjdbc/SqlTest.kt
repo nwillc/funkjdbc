@@ -63,4 +63,14 @@ class SqlTest {
         val scripts = folder.sqlScripts()
         assertThat(scripts).hasSize(2)
     }
+
+    @Test
+    internal fun foo() {
+        val op = Operation { x: Int -> x * x }
+        op(10)
+    }
 }
+
+fun interface Operation<T> {
+            operator fun invoke(x: T): T
+        }

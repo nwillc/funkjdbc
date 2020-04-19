@@ -55,7 +55,7 @@ class SqlStatementTest {
     fun `should be able to reassign bindings`() {
         val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", CountLTE(2))
         assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(2)
-        sqlStatement.bind = CountLTE(20)
+        sqlStatement.binder = CountLTE(20)
         assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(3)
     }
 
