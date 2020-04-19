@@ -51,7 +51,7 @@ typealias Binder = (PreparedStatement) -> Unit
  * ```
  *
  * @property sql The JDBC formatted SQL statements
- * @property bind The binding code block to bind values to SQL's '?'s
+ * @property binder The binding code block to bind values to SQL's '?'s
  */
 data class SqlStatement(val sql: String, val binder: Binder) {
     /**
