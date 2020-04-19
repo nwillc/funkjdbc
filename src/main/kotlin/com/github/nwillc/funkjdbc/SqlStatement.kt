@@ -50,7 +50,7 @@ import java.sql.PreparedStatement
  * @property sql The JDBC formatted SQL statements
  * @property binder The binding code block to bind values to SQL's '?'s
  */
-data class SqlStatement(val sql: String, var binder: Binder) {
+data class SqlStatement(val sql: String, val binder: Binder) {
     operator fun invoke(preparedStatement: PreparedStatement) =
         preparedStatement.apply { binder(preparedStatement) }
 }

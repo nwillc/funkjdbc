@@ -53,13 +53,16 @@ class SqlStatementTest {
 
     @Test
     fun `should be able to reassign bindings`() {
-        val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", CountLTE(2))
+        val countLTE = CountLTE()
+        val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", countLTE)
+
+        countLTE.value = 2
         assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(2)
-        sqlStatement.binder = CountLTE(20)
+        countLTE.value = 20
         assertThat(connection.find(sqlStatement) { rs -> rs.getString(1) }.count()).isEqualTo(3)
     }
 
-    private class CountLTE(val value: Int) : Binder {
+    private class CountLTE(var value: Int = 0) : Binder {
         override operator fun invoke(preparedStatement: PreparedStatement) {
             preparedStatement.setInt(1, value)
         }
