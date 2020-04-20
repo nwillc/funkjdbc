@@ -60,17 +60,11 @@ val map = connection.find("SELECT * FROM WORDS", ::pairExtractor).toMap()
 Or create a parameterized query based on the counts:
 
 ```kotlin
-data class SelectCountLTE(var value: Int = 0) :
-  SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
-  override val bind: Binder = { it.setInt(1, value) }
+val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT < ?") {
+    it.setInt(1, 5)
 }
 
-val sql = SelectCountLTE(1)
-connection.find(sql, {rs -> rs.getInt("count") } ).forEach { println("$it <= ${sql.value}") }
-
-sql.value = 200
-connection.find(sql, {rs -> rs.getInt("count") } ).forEach { println("$it <= ${sql.value}") }
-
+val count = connection.find(sqlStatement) { rs -> rs.getString(1) }.count()
 ```
 
 Additionally, operations can be performed in a transaction:
