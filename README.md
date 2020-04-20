@@ -44,9 +44,9 @@ val words = connection.find("SELECT WORD FROM WORDS") { rs -> rs.getString(1) }
 Or you want to display them as Pairs:
 
 ```kotlin
-fun pairExtractor(rs: ResultSet) = Pair(rs.getString("WORD")!!,rs.getInt("COUNT"))
+val pairExtractor: Extractor<Pair<String,Int>> = { rs -> Pair(rs.getString("WORD")!!,rs.getInt("COUNT")) }
 
-connection.find("SELECT * FROM WORDS", ::pairExtractor).forEach {
+connection.find("SELECT * FROM WORDS", pairExtractor).forEach {
    println("Word: ${it.first} Count: ${it.second}")
 }
 ```
@@ -54,7 +54,7 @@ connection.find("SELECT * FROM WORDS", ::pairExtractor).forEach {
 Or maybe put them in a Map:
 
 ```kotlin
-val map = connection.find("SELECT * FROM WORDS", ::pairExtractor).toMap()
+val map = connection.find("SELECT * FROM WORDS", pairExtractor).toMap()
 ```
 
 Or create a parameterized query based on the counts:
