@@ -2,6 +2,7 @@ import com.jfrog.bintray.gradle.BintrayExtension
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.net.URL
 
 plugins {
     jacoco
@@ -123,6 +124,12 @@ tasks {
     withType<DokkaTask> {
         outputFormat = "html"
         outputDirectory = "$projectDir/${Constants.dokkaDir}"
+        configuration {
+            externalDocumentationLink {
+                url = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/")
+                packageListUrl = URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/package-list")
+            }
+        }
     }
     withType<JacocoReport> {
         dependsOn("test")

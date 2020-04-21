@@ -42,6 +42,7 @@ annotation class Sql(
         TEARDOWN
     }
     companion object {
+        /** The file extension for SQL files. */
         const val FILE_EXTENSION = ".sql"
     }
 }

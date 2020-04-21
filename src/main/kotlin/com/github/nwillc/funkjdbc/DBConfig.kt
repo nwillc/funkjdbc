@@ -53,5 +53,14 @@ data class DBConfig(
     }
 }
 
+/**
+ * Convert an H2 [DBConfig] to the corresponding JDBC URL.
+ * @param dbConfig The config to convert.
+ */
 fun toH2Url(dbConfig: DBConfig): String = "jdbc:h2:mem:${dbConfig.database}"
+
+/**
+ * Convert a Sqllite [DBConfig] to corresponding JDBC URL.
+ * @param dbConfig The config to convert.
+ */
 fun toSqliteUrl(dbConfig: DBConfig): String = "jdbc:sqlite:${dbConfig.database}"
