@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>overrideAutoCommit - funkjdbc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">funkjdbc</a>&nbsp;/&nbsp;<a href="../index.html">com.github.nwillc.funkjdbc</a>&nbsp;/&nbsp;<a href="index.html">java.sql.Connection</a>&nbsp;/&nbsp;<a href="./override-auto-commit.html">overrideAutoCommit</a><br/>
+<br/>
+<h1>overrideAutoCommit</h1>
+<a name="com.github.nwillc.funkjdbc$overrideAutoCommit(java.sql.Connection, kotlin.Boolean, kotlin.Function1((java.sql.Connection, kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">.</span><span class="identifier">overrideAutoCommit</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc$overrideAutoCommit(java.sql.Connection, kotlin.Boolean, kotlin.Function1((java.sql.Connection, kotlin.Unit)))/enabled">enabled</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc$overrideAutoCommit(java.sql.Connection, kotlin.Boolean, kotlin.Function1((java.sql.Connection, kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">connection</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html"><span class="identifier">Connection</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Override connections auto commit setting for the duration of a block, restoring it at completion.</p>
+<h3>Parameters</h3>
+<p><a name="enabled"></a>
+<code>enabled</code> - The value to override to.</p>
+<p><a name="block"></a>
+<code>block</code> - The block to perform with the setting in place.</p>
+</BODY>
+</HTML>

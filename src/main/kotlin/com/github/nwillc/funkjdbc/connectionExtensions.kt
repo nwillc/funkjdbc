@@ -124,14 +124,27 @@ fun Connection.sqlStatement(sqlStatement: SqlStatement): PreparedStatement =
  */
 @SuppressWarnings("TooGenericExceptionCaught")
 fun Connection.transaction(block: (connection: Connection) -> Unit) {
+    overrideAutoCommit {
+        try {
+            block(this)
+            commit()
+        } catch (e: Exception) {
+            rollback()
+            throw e
+        }
+    }
+}
+
+/**
+ * Override connections auto commit setting for the duration of a block, restoring it at completion.
+ * @param enabled The value to override to.
+ * @param block The block to perform with the setting in place.
+ */
+fun Connection.overrideAutoCommit(enabled: Boolean = false, block: (connection: Connection) -> Unit) {
     val priorAutoCommit = autoCommit
-    autoCommit = false
+    autoCommit = enabled
     try {
-        block(this)
-        commit()
-    } catch (e: Exception) {
-        rollback()
-        throw e
+      block(this)
     } finally {
         autoCommit = priorAutoCommit
     }
