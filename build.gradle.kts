@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.11.1-SNAPSHOT"
+version = "0.12.0-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -41,8 +41,10 @@ ktlint {
 }
 
 detekt {
+    toolVersion = PluginVersions.detekt
     reports {
         html.enabled = true
+        txt.enabled = true
     }
 }
 

@@ -8,15 +8,15 @@
 
 Nothing exciting but...
 
- - Row to object mapping with first order functions.
- - Simplified JDBC’s bloated Java API into clean Kotlin for common use cases:
-   - update, find, transaction
+ - Row to object mapping and query parameter binding via Lambdas.
+ - Simplified JDBC’s API for common use cases:
+   - update, query, transaction
  - Provide results as a List or Kotlin Flow.
  - Thoroughly handled resource closing to remove boiler plate code.
  - Supports raw String SQL as well as JDBC’s ? replacements.
  - Simple.
-    - Implemented as a half dozen Connection extensions.
-    - Under 150 lines of code.
+    - Implemented largely as JDBC Connection extensions.
+    - Under 150 source lines of code.
     - No transitive dependencies (>30k binary).
  - Documented.
 
@@ -38,7 +38,7 @@ Now you want to add a row noting 10 occurrences of the word `foo`:
 Having created the table and added some rows, maybe you want to see the words:
 
 ```kotlin
-val words = connection.find("SELECT WORD FROM WORDS") { rs -> rs.getString(1) }
+val words = connection.query("SELECT WORD FROM WORDS") { rs -> rs.getString(1) }
 ```
 
 Or you want to display them as Pairs:
@@ -46,7 +46,7 @@ Or you want to display them as Pairs:
 ```kotlin
 val pairExtractor: Extractor<Pair<String,Int>> = { rs -> Pair(rs.getString("WORD")!!,rs.getInt("COUNT")) }
 
-connection.find("SELECT * FROM WORDS", pairExtractor).forEach {
+connection.query("SELECT * FROM WORDS", pairExtractor).forEach {
    println("Word: ${it.first} Count: ${it.second}")
 }
 ```
@@ -54,7 +54,7 @@ connection.find("SELECT * FROM WORDS", pairExtractor).forEach {
 Or maybe put them in a Map:
 
 ```kotlin
-val map = connection.find("SELECT * FROM WORDS", pairExtractor).toMap()
+val map = connection.query("SELECT * FROM WORDS", pairExtractor).toMap()
 ```
 
 Or create a parameterized query based on the counts:
@@ -64,7 +64,7 @@ val sqlStatement = SqlStatement("SELECT * FROM WORDS WHERE COUNT < ?") {
     it.setInt(1, 5)
 }
 
-val count = connection.find(sqlStatement) { rs -> rs.getString(1) }.count()
+val count = connection.query(sqlStatement) { rs -> rs.getString(1) }.count()
 ```
 
 Additionally, operations can be performed in a transaction:

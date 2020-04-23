@@ -34,7 +34,7 @@ import java.sql.SQLException
 @OptIn(ExperimentalCoroutinesApi::class)
 @Sql("src/test/resources/db/migrations")
 @ExtendWith(EmbeddedDb::class)
-class ConnectionExtensionsKtTest {
+class ConnectionExtensionsTest {
     private lateinit var connection: Connection
 
     @BeforeEach
@@ -61,7 +61,7 @@ class ConnectionExtensionsKtTest {
     @Test
     fun `should throw exception on bad query sql`() {
         assertThatThrownBy {
-            connection.find("blah blah") { rs -> rs.getInt(1) }
+            connection.query("blah blah") { rs -> rs.getInt(1) }
         }
             .isInstanceOf(SQLException::class.java)
     }
@@ -76,7 +76,7 @@ class ConnectionExtensionsKtTest {
 
     @Test
     fun `should be able to find a record`() {
-        val found = connection.find("SELECT * FROM WORDS WHERE WORD = 'a'") { rs ->
+        val found = connection.query("SELECT * FROM WORDS WHERE WORD = 'a'") { rs ->
             rs.getString(1)
         }
 
@@ -85,7 +85,7 @@ class ConnectionExtensionsKtTest {
 
     @Test
     fun `should be able to not find a record`() {
-        val found = connection.find("SELECT * FROM WORDS WHERE WORD = 'd'") { rs ->
+        val found = connection.query("SELECT * FROM WORDS WHERE WORD = 'd'") { rs ->
             rs.getString(1)
         }
 
@@ -141,7 +141,7 @@ class ConnectionExtensionsKtTest {
         val sql = SqlStatement("SELECT * FROM WORDS WHERE WORD = ?") {
             it.setString(1, "a")
         }
-        val found = connection.find(sql) { rs ->
+        val found = connection.query(sql) { rs ->
             rs.getString(1)
         }
 
@@ -154,7 +154,7 @@ class ConnectionExtensionsKtTest {
             it.setString(1, "a")
         }
 
-        val found = connection.find(sql) { rs ->
+        val found = connection.query(sql) { rs ->
             rs.getString(1)
         }
 
@@ -166,7 +166,7 @@ class ConnectionExtensionsKtTest {
         val sql = SqlStatement("SELECT * FROM WORDS WHERE WORD = ?") {
             it.setString(1, "d")
         }
-        val found = connection.find(sql) { rs ->
+        val found = connection.query(sql) { rs ->
             rs.getString(1)
         }
 
@@ -178,7 +178,7 @@ class ConnectionExtensionsKtTest {
         connection.transaction {
             it.update("INSERT INTO WORDS (WORD, COUNT) VALUES ('d', 10)")
         }
-        val found = connection.find(
+        val found = connection.query(
             "SELECT * FROM WORDS WHERE WORD = 'd'"
         ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(1)
@@ -196,7 +196,7 @@ class ConnectionExtensionsKtTest {
         } catch (e: Exception) {
         }
         assertThat(ran).isTrue()
-        val found = connection.find(
+        val found = connection.query(
             "SELECT * FROM WORDS WHERE WORD = 'd'"
         ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(0)

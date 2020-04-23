@@ -31,37 +31,33 @@ import java.sql.ResultSet
 typealias Extractor<T> = (ResultSet) -> T
 
 /**
- * Execute a SQL statement on a JDBC Connection. The SQL is a statement
- * that updates the database, and therefore returns a row count.
+ * Execute SQL statement on a JDBC [Connection] and returns a row count of effected rows.
  * @param sql A simple SQL statement.
  */
 fun Connection.update(sql: String): Int = update(SqlStatement(sql))
 
 /**
- * Execute SQL statement on a JDBC [Connection]. The SQL is a statement
- * that updates the database, and therefore returns a row count.
+ * Execute SQL statement on a JDBC [Connection] and returns a row count of effected rows.
  * @param sqlStatement A SqlStatement allowing parameters.
  */
 fun Connection.update(sqlStatement: SqlStatement): Int =
     sqlStatement(sqlStatement).use { it.executeUpdate() }
 
 /**
- * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
- * with the aim of retrieving a [List] of type T.
+ * Executes a SQL query on a JDBC [Connection] and extract results as a [List] of type T.
  * @param sql A simple SQL query.
  * @param extractor A function to extract type T from the rows.
  * @return The matching rows.
  */
-fun <T> Connection.find(sql: String, extractor: Extractor<T>): List<T> = find(SqlStatement(sql), extractor)
+fun <T> Connection.query(sql: String, extractor: Extractor<T>): List<T> = query(SqlStatement(sql), extractor)
 
 /**
- * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
- * with the aim of retrieving a [List] of type T.
+ * Executes a SQL query on a JDBC [Connection] and extract results as a [List] of type T.
  * @param sqlStatement A SqlStatement containing a query allowing for parameters.
  * @param extractor A function to extract type T from the rows.
  * @return The matching rows.
  */
-fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): List<T> =
+fun <T> Connection.query(sqlStatement: SqlStatement, extractor: Extractor<T>): List<T> =
     runBlocking {
         mutableListOf<T>().apply {
             asFlow(sqlStatement, extractor).toList(this)
@@ -69,8 +65,7 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
     }
 
 /**
- * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
- * with the aim of retrieving a [Flow] of type T.
+ * Executes a SQL query JDBC [Connection] and extract results as a [Flow] of type T.
  * @param sql The SQL to execute.
  * @param extractor A function to extract type T from row.
  * @return A Flow of T.
@@ -79,8 +74,7 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
 fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = asFlow(SqlStatement(sql), extractor)
 
 /**
- * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
- * with the aim of retrieving a [Flow] of type T.
+ * Executes a SQL query JDBC [Connection] and extract results as a [Flow] of type T.
  * @param sqlStatement The SQL to execute.
  * @param extractor A function to extract type T from row.
  * @return A Flow of T.

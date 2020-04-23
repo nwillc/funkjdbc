@@ -47,7 +47,7 @@ class SqlStatementTest {
             it.setInt(1, 5)
         }
 
-        val count = connection.find(sqlStatement) { rs -> rs.getString(1) }.count()
+        val count = connection.query(sqlStatement) { rs -> rs.getString(1) }.count()
         assertThat(count).isEqualTo(2)
     }
 
@@ -63,9 +63,9 @@ class SqlStatementTest {
         val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?", countLTE)
 
         countLTE.value = 2
-        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(2)
+        assertThat(connection.query(sql) { rs -> rs.getString(1) }.count()).isEqualTo(2)
 
         countLTE.value = 20
-        assertThat(connection.find(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
+        assertThat(connection.query(sql) { rs -> rs.getString(1) }.count()).isEqualTo(3)
     }
 }
