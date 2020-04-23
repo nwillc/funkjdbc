@@ -2,9 +2,9 @@ $dokka.format:html
 $dokka.linkExtension:html
 $dokka.location:com.github.nwillc.funkjdbc$asFlow(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.asFlow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/as-flow.html
 $dokka.location:com.github.nwillc.funkjdbc$asFlow(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.asFlow.T)))com.github.nwillc.funkjdbc/java.sql.-connection/as-flow.html
-$dokka.location:com.github.nwillc.funkjdbc$find(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))com.github.nwillc.funkjdbc/java.sql.-connection/find.html
-$dokka.location:com.github.nwillc.funkjdbc$find(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.find.T)))com.github.nwillc.funkjdbc/java.sql.-connection/find.html
 $dokka.location:com.github.nwillc.funkjdbc$overrideAutoCommit(java.sql.Connection, kotlin.Boolean, kotlin.Function1((java.sql.Connection, kotlin.Unit)))com.github.nwillc.funkjdbc/java.sql.-connection/override-auto-commit.html
+$dokka.location:com.github.nwillc.funkjdbc$query(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.query.T)))com.github.nwillc.funkjdbc/java.sql.-connection/query.html
+$dokka.location:com.github.nwillc.funkjdbc$query(java.sql.Connection, kotlin.String, kotlin.Function1((java.sql.ResultSet, com.github.nwillc.funkjdbc.query.T)))com.github.nwillc.funkjdbc/java.sql.-connection/query.html
 $dokka.location:com.github.nwillc.funkjdbc$sqlFor(kotlin.Any, com.github.nwillc.funkjdbc.Sql.ExecutionPhase)com.github.nwillc.funkjdbc/kotlin.-any/sql-for.html
 $dokka.location:com.github.nwillc.funkjdbc$sqlScripts(java.io.File)com.github.nwillc.funkjdbc/java.io.-file/sql-scripts.html
 $dokka.location:com.github.nwillc.funkjdbc$sqlStatement(java.sql.Connection, com.github.nwillc.funkjdbc.SqlStatement)com.github.nwillc.funkjdbc/java.sql.-connection/sql-statement.html
