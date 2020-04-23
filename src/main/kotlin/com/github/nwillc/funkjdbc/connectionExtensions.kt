@@ -144,7 +144,7 @@ fun Connection.overrideAutoCommit(enabled: Boolean = false, block: (connection: 
     val priorAutoCommit = autoCommit
     autoCommit = enabled
     try {
-      block(this)
+        block(this)
     } finally {
         autoCommit = priorAutoCommit
     }
