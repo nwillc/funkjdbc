@@ -9,27 +9,16 @@
 <br/>
 <h1>SqlStatement</h1>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SqlStatement</span></code>
-<p>A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
+<p>A SQL string, with a binding block in needed to help with JDBC <a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html">PreparedStatement</a>. The sql String
 excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
 to those '?'s on a given PreparedStatement.</p>
-<p>A simple use might be:</p>
+<p>In the simplest case:</p>
+<pre><code>val sql = SqlStatement("SELECT * FROM WORDS")
+</code></pre>
+<p>An example with bindings:</p>
 <pre><code>val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT &lt; ?") {
   it.setInt(1, someValue)
 }
-</code></pre>
-<p>However, this class, and the bind property are <code>open</code>. This is done to allow subclassing to create specific
-queries with typed arguments:</p>
-<pre><code>data class SelectCountLTE(var value: Int = 0) :
-  SqlStatement("SELECT * FROM WORDS WHERE COUNT &lt;= ?") {
-   override val bind: Binder = { it.setInt(1, value) }
-}
-</code></pre>
-<p>To allow uses like:</p>
-<pre><code>val sql = SelectCountLTE(1)
-connection.query(sql, {rs -&gt; rs.getInt("count") } ) { it.forEach { println("$it &lt;= 1") } }
-
-sql.value = 200
-connection.query(sql, {rs -&gt; rs.getInt("count") } ) { it.forEach { println("$it &lt;= 200") } }
 </code></pre>
 <h3>Constructors</h3>
 <table>
@@ -39,10 +28,10 @@ connection.query(sql, {rs -&gt; rs.getInt("count") } ) { it.forEach { println("$
 <h4><a href="-init-.html">&lt;init&gt;</a></h4>
 </td>
 <td>
-<p>A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
+<p>A SQL string, with a binding block in needed to help with JDBC <a href="https://docs.oracle.com/javase/6/docs/api/java/sql/PreparedStatement.html">PreparedStatement</a>. The sql String
 excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
 to those '?'s on a given PreparedStatement.</p>
-<code><span class="identifier">SqlStatement</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/binder">binder</span><span class="symbol">:</span>&nbsp;<a href="../-binder.html"><span class="identifier">Binder</span></a><span class="symbol">)</span></code></td>
+<code><span class="identifier">SqlStatement</span><span class="symbol">(</span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/sql">sql</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.github.nwillc.funkjdbc.SqlStatement$<init>(kotlin.String, kotlin.Function1((java.sql.PreparedStatement, kotlin.Unit)))/binder">binder</span><span class="symbol">:</span>&nbsp;<a href="../-binder.html"><span class="identifier">Binder</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -54,15 +43,15 @@ to those '?'s on a given PreparedStatement.</p>
 <h4><a href="binder.html">binder</a></h4>
 </td>
 <td>
-<p>The binding code block to bind values to SQL's '?'s</p>
-<code><span class="keyword">val </span><span class="identifier">binder</span><span class="symbol">: </span><a href="../-binder.html"><span class="identifier">Binder</span></a></code></td>
+<p>The optional binding code block to bind values to SQL's '?'s</p>
+<code><span class="keyword">val </span><span class="identifier">binder</span><span class="symbol">: </span><a href="../-binder.html"><span class="identifier">Binder</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="sql.html">sql</a></h4>
 </td>
 <td>
-<p>The JDBC formatted SQL statements</p>
+<p>The SQL statement, with JDBC bindings allowed.</p>
 <code><span class="keyword">val </span><span class="identifier">sql</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
 </tr>
 </tbody>

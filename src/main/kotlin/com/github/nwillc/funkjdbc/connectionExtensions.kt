@@ -35,7 +35,7 @@ typealias Extractor<T> = (ResultSet) -> T
  * that updates the database, and therefore returns a row count.
  * @param sql A simple SQL statement.
  */
-fun Connection.update(sql: String): Int = createStatement().use { it.executeUpdate(sql) }
+fun Connection.update(sql: String): Int = update(SqlStatement(sql))
 
 /**
  * Execute SQL statement on a JDBC [Connection]. The SQL is a statement
@@ -52,12 +52,7 @@ fun Connection.update(sqlStatement: SqlStatement): Int =
  * @param extractor A function to extract type T from the rows.
  * @return The matching rows.
  */
-fun <T> Connection.find(sql: String, extractor: Extractor<T>): List<T> =
-    runBlocking {
-        mutableListOf<T>().apply {
-            asFlow(sql, extractor).toList(this)
-        }
-    }
+fun <T> Connection.find(sql: String, extractor: Extractor<T>): List<T> = find(SqlStatement(sql), extractor)
 
 /**
  * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query
@@ -81,15 +76,7 @@ fun <T> Connection.find(sqlStatement: SqlStatement, extractor: Extractor<T>): Li
  * @return A Flow of T.
  * @since 0.9.1
  */
-fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = flow {
-    createStatement().use { statement ->
-        statement.executeQuery(sql).use { rs ->
-            while (rs.next()) {
-                emit(extractor(rs))
-            }
-        }
-    }
-}
+fun <T> Connection.asFlow(sql: String, extractor: Extractor<T>): Flow<T> = asFlow(SqlStatement(sql), extractor)
 
 /**
  * Execute SQL on a JDBC [Connection] and extract results. The SQL is a query

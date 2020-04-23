@@ -22,42 +22,30 @@ import java.sql.PreparedStatement
 typealias Binder = (PreparedStatement) -> Unit
 
 /**
- * A SQL string, with a binding block to help with JDBC PreparedStatement. The sql String
+ * A SQL string, with a binding block in needed to help with JDBC [PreparedStatement]. The sql String
  * excepts JDBC '?' value replacement syntax, and the binding block allows you to bind values
  * to those '?'s on a given PreparedStatement.
  *
- * A simple use might be:
+ * In the simplest case:
+ * ```
+ * val sql = SqlStatement("SELECT * FROM WORDS")
+ * ```
+ *
+ * An example with bindings:
  * ```
  * val sql = SqlStatement("SELECT * FROM WORDS WHERE COUNT < ?") {
  *   it.setInt(1, someValue)
  * }
  * ```
- * However, this class, and the bind property are `open`. This is done to allow subclassing to create specific
- * queries with typed arguments:
  *
- * ```
- * data class SelectCountLTE(var value: Int = 0) :
- *   SqlStatement("SELECT * FROM WORDS WHERE COUNT <= ?") {
- *    override val bind: Binder = { it.setInt(1, value) }
- * }
- * ```
- * To allow uses like:
- * ```
- * val sql = SelectCountLTE(1)
- * connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= 1") } }
- *
- * sql.value = 200
- * connection.query(sql, {rs -> rs.getInt("count") } ) { it.forEach { println("$it <= 200") } }
- * ```
- *
- * @property sql The JDBC formatted SQL statements
- * @property binder The binding code block to bind values to SQL's '?'s
+ * @property sql The SQL statement, with JDBC bindings allowed.
+ * @property binder The optional binding code block to bind values to SQL's '?'s
  */
-data class SqlStatement(val sql: String, val binder: Binder) {
+data class SqlStatement(val sql: String, val binder: Binder? = null) {
     /**
      * Make the default behavior of the [SqlStatement] to be to apply the [Binder] to the SQL.
      * @param preparedStatement The [PreparedStatement] with the SQL and [Binder].
      */
     operator fun invoke(preparedStatement: PreparedStatement) =
-        preparedStatement.apply { binder(preparedStatement) }
+        preparedStatement.apply { binder?.invoke(preparedStatement) }
 }

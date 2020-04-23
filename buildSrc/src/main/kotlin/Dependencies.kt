@@ -27,7 +27,7 @@ object PluginVersions {
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
     const val ktlint = "9.2.1"
-    const val vplugin = "3.0.3"
+    const val vplugin = "3.0.4"
 }
 
 object ToolVersions {
