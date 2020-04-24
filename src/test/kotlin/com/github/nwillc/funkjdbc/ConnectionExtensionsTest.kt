@@ -204,18 +204,19 @@ class ConnectionExtensionsTest {
 
     @Test
     fun `batch update`() {
+        val values = arrayOf(Pair("one", 10), Pair("two", 20), Pair("three", 30))
         val sql = "INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)"
         val one: Binder = {
-            it.setString(1, "one")
-            it.setInt(2, 10)
+            it.setString(1, values[0].first)
+            it.setInt(2, values[0].second)
         }
         val two: Binder = {
-            it.setString(1, "two")
-            it.setInt(2, 20)
+            it.setString(1, values[1].first)
+            it.setInt(2, values[1].second)
         }
         val three: Binder = {
-            it.setString(1, "three")
-            it.setInt(2, 30)
+            it.setString(1, values[2].first)
+            it.setInt(2, values[2].second)
         }
 
         val rows = connection.update(sql, one, two, three)
@@ -225,6 +226,6 @@ class ConnectionExtensionsTest {
             Pair(it.getString(1), it.getInt(2))
         }
 
-        assertThat(pairs).contains(Pair("one", 10), Pair("two", 20), Pair("three", 30))
+        assertThat(pairs).contains(*values)
     }
 }
