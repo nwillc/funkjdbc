@@ -201,4 +201,30 @@ class ConnectionExtensionsTest {
         ) { rs -> rs.getString(1) }
         assertThat(found).hasSize(0)
     }
+
+    @Test
+    fun `batch update`() {
+        val sql = "INSERT INTO WORDS (WORD, COUNT) VALUES (?, ?)"
+        val one: Binder = {
+            it.setString(1, "one")
+            it.setInt(2, 10)
+        }
+        val two: Binder = {
+            it.setString(1, "two")
+            it.setInt(2, 20)
+        }
+        val three: Binder = {
+            it.setString(1, "three")
+            it.setInt(2, 30)
+        }
+
+        val rows = connection.update(sql, one, two, three)
+        assertThat(rows).isEqualTo(arrayOf(1,1,1))
+
+        val pairs = connection.query("SELECT * FROM WORDS") {
+            Pair(it.getString(1), it.getInt(2))
+        }
+
+        assertThat(pairs).contains(Pair("one", 10), Pair("two", 20), Pair("three", 30))
+    }
 }

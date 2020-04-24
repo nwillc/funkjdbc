@@ -43,6 +43,27 @@ fun Connection.update(sql: String): Int = update(SqlStatement(sql))
 fun Connection.update(sqlStatement: SqlStatement): Int =
     sqlStatement(sqlStatement).use { it.executeUpdate() }
 
+fun Connection.update(sql: String, vararg binders: Binder): IntArray {
+    var result: IntArray = IntArray(0)
+    overrideAutoCommit { connection ->
+        val preparedStatement = prepareStatement(sql)
+        binders.forEach { binder ->
+            binder(preparedStatement)
+            preparedStatement.addBatch()
+        }
+        try {
+            preparedStatement.use {
+             result =  it.executeBatch()
+            }
+        } finally {
+            connection.commit()
+        }
+    }
+    return result
+}
+
+
+
 /**
  * Executes a SQL query on a JDBC [Connection] and extract results as a [List] of type T.
  * @param sql A simple SQL query.
