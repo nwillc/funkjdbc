@@ -19,6 +19,7 @@ Nothing exciting but...
     - Under 150 source lines of code.
     - No transitive dependencies (>30k binary).
  - Documented.
+ - A testing artifact with JUnit 5 support for an embedded database.
 
 ## Using These Extensions
 
@@ -79,6 +80,42 @@ try {
   println("Transaction failed: $e")
 }
 ```
+
+## The Testing Jar
+
+This code is tested in JUnit 5 with an embedded database. I've made that code available separately here. It
+can be used with this framework, or any JDBC code that expects a JDBC Connection.  To get version `0.12.0` of
+the test artifact for example use `com.github.nwillc:funkjdbc:0.12.0:test`. In a Gradle Kotlin DSL build this
+would look like:
+
+````kotlin
+    testImplementation("com.github.nwillc:funkjdbc:0.12.0:test")
+````
+
+To employ it in a test:
+
+```kotlin
+@Sql("src/test/resources/db/migrations")
+@ExtendWith(EmbeddedDb::class)
+class ConnectionExtensionsTest {
+    private lateinit var connection: Connection
+
+    @BeforeEach
+    fun setUp(dbConfig: DBConfig) {
+        connection = dbConfig.getConnection()
+    }
+
+    @Test
+    fun selectTest() {
+        connection.query("SELECT count(*) FROM TABLE")
+    }
+}
+```
+
+The embedded database, H2 by default, will spin up before each test, run the SQL scripts indicated in the
+`@Sql` annotation, and pass its `DBConfig` to your `@BeforeEach` so that you can get a Connection to it. It's
+a very simple mechanism and has been tested with H2, Sqlite and even a Postgres test container.
+
 ## See Also
 
 - [API Docs](https://nwillc.github.io/funkjdbc/dokka/funkjdbc/index.html)
