@@ -114,8 +114,8 @@ class ConnectionExtensionsTest {
 
 The embedded database, H2 by default, will spin up before each test, run the setup SQL scripts indicated in the
 `@Sql` annotation, and pass its `DBConfig` to your `@BeforeEach` so that you can get a Connection to it. If tear down
-scripts are defined those will be run after the test. It's a very simple mechanism and has been tested with H2, Sqlite
-and a Postgres [test container](https://www.testcontainers.org/).
+scripts are defined those will be run after the test. It's a very simple mechanism and has been tested with Derby, H2,
+Sqlite and a Postgres [test container](https://www.testcontainers.org/).
 
 ## See Also
 
