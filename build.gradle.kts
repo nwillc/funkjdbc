@@ -31,7 +31,9 @@ dependencies {
     ) { testImplementation(it) }
 
     Dependencies.artifacts(
-        "com.h2database:h2"
+        "com.h2database:h2",
+        "org.apache.derby:derby",
+        "org.apache.derby:derbytools"
     ) { testRuntimeOnly(it) }
 }
 

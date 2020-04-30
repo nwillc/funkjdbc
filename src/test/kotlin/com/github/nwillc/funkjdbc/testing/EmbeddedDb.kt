@@ -21,6 +21,7 @@ import com.github.nwillc.funkjdbc.DBConfig
 import com.github.nwillc.funkjdbc.Sql
 import com.github.nwillc.funkjdbc.sqlFor
 import com.github.nwillc.funkjdbc.toH2Url
+import com.github.nwillc.funkjdbc.toInMemoryDerbyUrl
 import com.github.nwillc.funkjdbc.update
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.BeforeEachCallback
@@ -32,8 +33,8 @@ import java.util.logging.Logger
 
 class EmbeddedDb(
     private var dbConfig: DBConfig = DBConfig(
-        driver = "org.h2.Driver",
-        toUrl = ::toH2Url
+        driver = "org.apache.derby.jdbc.EmbeddedDriver",
+        toUrl = ::toInMemoryDerbyUrl
     )
 ) : ParameterResolver, BeforeEachCallback, AfterEachCallback {
 

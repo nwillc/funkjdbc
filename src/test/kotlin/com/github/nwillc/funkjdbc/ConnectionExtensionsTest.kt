@@ -32,7 +32,10 @@ import java.sql.Connection
 import java.sql.SQLException
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@Sql("src/test/resources/db/migrations")
+@Sqls(
+    Sql("src/test/resources/db/migrations",  executionPhase = Sql.ExecutionPhase.SETUP),
+    Sql("src/test/resources/db/teardown",  executionPhase = Sql.ExecutionPhase.TEARDOWN)
+)
 @ExtendWith(EmbeddedDb::class)
 class ConnectionExtensionsTest {
     private lateinit var connection: Connection

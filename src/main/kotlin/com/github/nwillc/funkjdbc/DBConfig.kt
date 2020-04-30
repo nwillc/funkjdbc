@@ -64,3 +64,5 @@ fun toH2Url(dbConfig: DBConfig): String = "jdbc:h2:mem:${dbConfig.database}"
  * @param dbConfig The config to convert.
  */
 fun toSqliteUrl(dbConfig: DBConfig): String = "jdbc:sqlite:${dbConfig.database}"
+
+fun toInMemoryDerbyUrl(dbConfig: DBConfig): String = "jdbc:derby:memory:${dbConfig.database};create=true"

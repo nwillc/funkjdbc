@@ -38,6 +38,7 @@ object ToolVersions {
 object Versions {
     const val assertJ = "3.15.0"
     const val coroutines = "1.3.5"
+    const val derby = "10.15.2.0"
     const val h2 = "1.4.200"
     const val jupiter = "5.6.1"
 }
@@ -52,6 +53,8 @@ object Dependencies {
         "com.jfrog.bintray" to PluginVersions.bintray
     )
     val artifacts = mapOf(
+        "org.apache.derby:derby" to Versions.derby,
+        "org.apache.derby:derbytools" to Versions.derby,
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
         "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines,
         "org.junit.jupiter:junit-jupiter" to Versions.jupiter,
