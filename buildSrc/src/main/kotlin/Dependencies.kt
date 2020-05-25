@@ -23,7 +23,7 @@ object Constants {
 
 object PluginVersions {
     const val bintray = "1.8.5"
-    const val detekt = "1.8.0"
+    const val detekt = "1.9.1"
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
     const val ktlint = "9.2.1"
@@ -36,10 +36,10 @@ object ToolVersions {
 }
 
 object Versions {
-    const val assertJ = "3.15.0"
-    const val coroutines = "1.3.5"
+    const val assertJ = "3.16.1"
+    const val coroutines = "1.3.7"
     const val h2 = "1.4.200"
-    const val jupiter = "5.6.1"
+    const val jupiter = "5.7.0-M1"
 }
 
 object Dependencies {
