@@ -24,6 +24,9 @@ import kotlinx.coroutines.runBlocking
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
@@ -104,7 +107,11 @@ fun Connection.sqlStatement(sqlStatement: SqlStatement): PreparedStatement =
  * @param block The code block to perform within the transaction.
  */
 @SuppressWarnings("TooGenericExceptionCaught")
+@OptIn(ExperimentalContracts::class)
 fun Connection.transaction(block: (connection: Connection) -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
     overrideAutoCommit {
         try {
             block(this)
@@ -121,7 +128,11 @@ fun Connection.transaction(block: (connection: Connection) -> Unit) {
  * @param enabled The value to override to.
  * @param block The block to perform with the setting in place.
  */
+@OptIn(ExperimentalContracts::class)
 fun Connection.overrideAutoCommit(enabled: Boolean = false, block: (connection: Connection) -> Unit) {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
     val priorAutoCommit = autoCommit
     autoCommit = enabled
     try {
