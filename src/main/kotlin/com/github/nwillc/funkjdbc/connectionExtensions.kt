@@ -26,7 +26,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 /**
- * A function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
+ * A mapper function to extract a type from a ResultSet. No magic here, use JDBC's getXXX methods here.
  */
 typealias Extractor<T> = (ResultSet) -> T
 

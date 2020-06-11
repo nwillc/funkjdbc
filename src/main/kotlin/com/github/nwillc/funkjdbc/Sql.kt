@@ -38,9 +38,11 @@ annotation class Sql(
     enum class ExecutionPhase {
         /** Set up a database. */
         SETUP,
+
         /** Tear down a database. */
         TEARDOWN
     }
+
     companion object {
         /** The file extension for SQL files. */
         const val FILE_EXTENSION = ".sql"
@@ -96,11 +98,12 @@ fun Any.sqlFor(executionPhase: Sql.ExecutionPhase = Sql.ExecutionPhase.SETUP): L
  */
 fun File.sqlScripts(): List<File> = when {
     isFile && name.endsWith(FILE_EXTENSION, true) -> listOf(this)
-    isDirectory -> walk()
-        .filter { it.isFile }
-        .map { it.sqlScripts() }
-        .flatten()
-        .sorted()
-        .toList()
+    isDirectory ->
+        walk()
+            .filter { it.isFile }
+            .map { it.sqlScripts() }
+            .flatten()
+            .sorted()
+            .toList()
     else -> emptyList()
 }

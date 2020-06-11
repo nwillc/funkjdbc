@@ -10,8 +10,8 @@ plugins {
     Dependencies.plugins.forEach { (n, v) -> id(n) version v }
 }
 
-group = "com.github.nwillc"
-version = "0.12.1-SNAPSHOT"
+group = Constants.group
+version = Constants.version
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -95,18 +95,20 @@ bintray {
     dryRun = false
     publish = true
     setPublications(Constants.publicationName)
-    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
-        repo = Constants.publicationName
-        name = project.name
-        desc = "Functional Kotlin JDBC Extensions."
-        websiteUrl = "https://github.com/nwillc/${project.name}"
-        issueTrackerUrl = "https://github.com/nwillc/${project.name}/issues"
-        vcsUrl = "https://github.com/nwillc/${project.name}.git"
-        version.vcsTag = "v${project.version}"
-        setLicenses("ISC")
-        setLabels("kotlin", "JDBC")
-        publicDownloadNumbers = true
-    })
+    pkg(
+        delegateClosureOf<BintrayExtension.PackageConfig> {
+            repo = Constants.publicationName
+            name = project.name
+            desc = "Functional Kotlin JDBC Extensions."
+            websiteUrl = "https://github.com/nwillc/${project.name}"
+            issueTrackerUrl = "https://github.com/nwillc/${project.name}/issues"
+            vcsUrl = "https://github.com/nwillc/${project.name}.git"
+            version.vcsTag = "v${project.version}"
+            setLicenses("ISC")
+            setLabels("kotlin", "JDBC")
+            publicDownloadNumbers = true
+        }
+    )
 }
 
 tasks {

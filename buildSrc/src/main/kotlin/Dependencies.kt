@@ -17,8 +17,10 @@
  */
 
 object Constants {
-    const val publicationName = "maven"
     const val dokkaDir = "docs/dokka"
+    const val group =  "com.github.nwillc"
+    const val publicationName = "maven"
+    const val version = "0.12.1-SNAPSHOT"
 }
 
 object PluginVersions {
@@ -31,7 +33,7 @@ object PluginVersions {
 }
 
 object ToolVersions {
-    const val ktlint = "0.36.0"
+    const val ktlint = "0.37.0"
     const val jacoco = "0.8.3"
 }
 
