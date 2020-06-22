@@ -31,8 +31,8 @@ dependencies {
     ) { implementation(it) }
 
     Dependencies.artifacts(
-        "org.junit.jupiter:junit-jupiter",
-        "org.assertj:assertj-core"
+        "org.assertj:assertj-core",
+        "org.junit.jupiter:junit-jupiter"
     ) { testImplementation(it) }
 
     Dependencies.artifacts(

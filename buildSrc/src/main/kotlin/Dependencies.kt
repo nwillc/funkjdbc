@@ -25,7 +25,7 @@ object Constants {
 
 object PluginVersions {
     const val bintray = "1.8.5"
-    const val detekt = "1.9.1"
+    const val detekt = "1.10.0-RC1"
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
     const val vplugin = "3.0.5"
@@ -44,28 +44,21 @@ object Versions {
 
 object Dependencies {
     val plugins = mapOf(
-        "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
-        "org.jetbrains.dokka" to PluginVersions.dokka,
         "com.github.nwillc.vplugin" to PluginVersions.vplugin,
+        "com.jfrog.bintray" to PluginVersions.bintray,
         "io.gitlab.arturbosch.detekt" to PluginVersions.detekt,
-        "com.jfrog.bintray" to PluginVersions.bintray
+        "org.jetbrains.dokka" to PluginVersions.dokka,
+        "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin
     )
     val artifacts = mapOf(
-        "org.assertj:assertj-core" to Versions.assertJ,
+        "com.h2database:h2" to Versions.h2,
         "io.gitlab.arturbosch.detekt:detekt-cli" to PluginVersions.detekt,
         "io.gitlab.arturbosch.detekt:detekt-formatting" to PluginVersions.detekt,
+        "org.assertj:assertj-core" to Versions.assertJ,
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
         "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines,
-        "org.junit.jupiter:junit-jupiter" to Versions.jupiter,
-        "com.h2database:h2" to Versions.h2
+        "org.junit.jupiter:junit-jupiter" to Versions.jupiter
     )
-
-    fun plugins(vararg keys: String, block: (Pair<String, String>) -> Unit) =
-        keys
-            .map { it to (plugins[it] ?: error("No plugin $it registered in Dependencies.")) }
-            .forEach {
-                block(it)
-            }
 
     fun artifacts(vararg keys: String, block: (String) -> Unit) =
         keys
