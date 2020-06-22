@@ -28,12 +28,10 @@ object PluginVersions {
     const val detekt = "1.9.1"
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
-    const val ktlint = "9.2.1"
     const val vplugin = "3.0.5"
 }
 
 object ToolVersions {
-    const val ktlint = "0.37.0"
     const val jacoco = "0.8.3"
 }
 
@@ -48,16 +46,17 @@ object Dependencies {
     val plugins = mapOf(
         "org.jetbrains.kotlin.jvm" to PluginVersions.kotlin,
         "org.jetbrains.dokka" to PluginVersions.dokka,
-        "org.jlleitschuh.gradle.ktlint" to PluginVersions.ktlint,
         "com.github.nwillc.vplugin" to PluginVersions.vplugin,
         "io.gitlab.arturbosch.detekt" to PluginVersions.detekt,
         "com.jfrog.bintray" to PluginVersions.bintray
     )
     val artifacts = mapOf(
+        "org.assertj:assertj-core" to Versions.assertJ,
+        "io.gitlab.arturbosch.detekt:detekt-cli" to PluginVersions.detekt,
+        "io.gitlab.arturbosch.detekt:detekt-formatting" to PluginVersions.detekt,
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
         "org.jetbrains.kotlinx:kotlinx-coroutines-core" to Versions.coroutines,
         "org.junit.jupiter:junit-jupiter" to Versions.jupiter,
-        "org.assertj:assertj-core" to Versions.assertJ,
         "com.h2database:h2" to Versions.h2
     )
 

@@ -21,6 +21,11 @@ repositories {
 
 dependencies {
     Dependencies.artifacts(
+        "io.gitlab.arturbosch.detekt:detekt-cli",
+        "io.gitlab.arturbosch.detekt:detekt-formatting"
+    ) { detekt(it) }
+
+    Dependencies.artifacts(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
         "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     ) { implementation(it) }
@@ -33,11 +38,6 @@ dependencies {
     Dependencies.artifacts(
         "com.h2database:h2"
     ) { testRuntimeOnly(it) }
-}
-
-ktlint {
-    version.set(ToolVersions.ktlint)
-    disabledRules.set(setOf("import-ordering"))
 }
 
 detekt {
